@@ -2,7 +2,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 //Pages
-import EmployeeHomePage from '@pages/EmployeeHomePage';
+import EmployeeHomePage from '@pages/Homepage/Homepage';
 
 const root = document.getElementById("root");
 
