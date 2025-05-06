@@ -1,8 +1,15 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @theme {
-    --color-primary: #000000;
-    --color-secondary: #000000;
-    --color-accent: #000000;
-    --color-background: #fff;
+    --color-primary: #263238;
+    --color-secondary: #455A64;
+    --color-accent: #B0BEC5;
+    --color-background: #F7F7F7;
+}
+
+html {
+    font-family: 'Public Sans', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-primary);
 }
