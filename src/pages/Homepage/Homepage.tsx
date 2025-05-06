@@ -1,5 +1,4 @@
 import Button from "@components/shared/Button/Button";
-import React from "react";
 
 const EmployeeHomePage = () => {
   const buttonList = [
@@ -19,7 +18,7 @@ const EmployeeHomePage = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-24">
         {buttonList.map((button, index) => (
-          <Button text={button}/>
+          <Button key={index} text={button}/>
         ))}
       </div>
     </section>
