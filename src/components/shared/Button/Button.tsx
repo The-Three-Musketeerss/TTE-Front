@@ -2,19 +2,25 @@ type ButtonProps = {
   text: string;
   onClick?: () => void;
   type?: "button" | "submit";
+  fullWidth?: boolean;
 };
 
-const Button = ({ text, onClick, type = "button" }: ButtonProps) => {
+const Button = ({
+  text,
+  onClick,
+  type = "button",
+  fullWidth = true,
+}: ButtonProps) => {
   return (
-    <>
-      <button
-        type={type}
-        onClick={onClick}
-        className="text-white w-full bg-primary hover:bg-secondary font-medium rounded-lg text-sm lg:text-lg px-5 py-3 text-center me-2 mb-2"
-      >
-        {text}
-      </button>
-    </>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`text-white ${
+        fullWidth ? "w-full" : "w-auto"
+      } bg-primary hover:bg-secondary font-medium rounded-lg text-sm lg:text-lg px-5 py-3 text-center me-2 mb-2`}
+    >
+      {text}
+    </button>
   );
 };
 

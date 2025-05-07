@@ -11,7 +11,7 @@ const Header = ({ userRole }: HeaderProps) => {
   const canSeeEmployeePortal = userRole === "Admin" || userRole === "Employee";
 
   return (
-    <header className="flex flex-col">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex-row-center justify-around w-full h-9 bg-primary">
         <span className="header-text hidden md:block">USD</span>
         <span className="header-text">FREE SHIPPING ON ALL ITEMS! MAY. 5–19.</span>
