@@ -30,45 +30,39 @@ const CreateProduct = () => {
           register={register("price")}
           error={errors.price}
           label="Price"
-          type="number"
           placeholder="0.00"
         />
         <BaseInput
           register={register("description")}
           error={errors.description}
           label="Description"
-          type="text"
           placeholder="Description"
         />
         <BaseInput
-            register={register("category")}
-            error={errors.category}
-            label="Category"
-            type="text"
-            placeholder="Category"
+          register={register("category")}
+          error={errors.category}
+          label="Category"
+          placeholder="Category"
         />
         <BaseInput
           register={register("image")}
           error={errors.image}
           label="Image URL"
-          type="text"
           placeholder="https://example.com/image.jpg"
         />
         <div className="grid grid-cols-2 gap-4">
-        <BaseInput
-          register={register("total")}
-          error={errors.total}
-          label="Total"
-          type="number"
-          placeholder="0"
-        />
-        <BaseInput
+          <BaseInput
+            register={register("total")}
+            error={errors.total}
+            label="Total"
+            placeholder="0"
+          />
+          <BaseInput
             register={register("available")}
             error={errors.available}
             label="Available"
-            type="number"
             placeholder="0"
-        />
+          />
         </div>
         <Button type="submit" text="Add" />
       </form>
