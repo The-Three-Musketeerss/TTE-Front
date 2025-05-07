@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+@plugin "daisyui" {
+    themes: false;
+}
 
 @theme {
     --color-primary: #263238;
@@ -8,8 +11,39 @@
     --color-background: #F7F7F7;
 }
 
+@layer base {
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number'] {
+      -webkit-appearance: none;
+      margin: 0;
+      -moz-appearance: textfield !important;
+    }
+}
+
 html {
     font-family: 'Public Sans', sans-serif;
     background-color: var(--color-background);
     color: var(--color-primary);
 }
+
+.header-text {
+    @apply text-white text-sm;
+}
+
+.desktop-only {
+    @apply hidden lg:block;
+}
+
+.icon-size {
+    @apply size-5;
+}
+
+.menu-hover {
+    @apply hover:bg-gray-100;
+}
+
+.flex-row-center {
+    @apply flex flex-row items-center;
+}
+  

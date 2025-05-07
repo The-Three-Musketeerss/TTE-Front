@@ -22,7 +22,8 @@
       "@utils/*": ["utils/*"],
       "@assets/*": ["assets/*"],
       "@services/*": ["services/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@layouts/*": ["layouts/*"]
     },
 
     /* Linting */
