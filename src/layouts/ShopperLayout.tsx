@@ -2,8 +2,8 @@ import { Link, Outlet } from "react-router-dom";
 import { HiXMark } from "react-icons/hi2";
 import Header from "@components/shared/Header/Header";
 
-const AdminLayout = () => {
-  const userRole = "Admin";
+const ShopperLayout = () => {
+  const userRole = "Shopper";
 
   return (
     <div className="drawer">
@@ -39,4 +39,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default ShopperLayout;

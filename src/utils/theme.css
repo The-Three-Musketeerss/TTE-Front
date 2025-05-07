@@ -16,3 +16,24 @@ html {
     background-color: var(--color-background);
     color: var(--color-primary);
 }
+
+.header-text {
+    @apply text-white text-sm;
+}
+
+.desktop-only {
+    @apply hidden lg:block;
+}
+
+.icon-size {
+    @apply size-5;
+}
+
+.menu-hover {
+    @apply hover:bg-gray-100;
+}
+
+.flex-row-center {
+    @apply flex flex-row items-center;
+}
+  
