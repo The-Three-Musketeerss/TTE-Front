@@ -16,7 +16,7 @@ const MainLayout = () => {
             <span className="text-white text-sm hidden md:block">Support</span>
           </div>
 
-          <div className="flex flex-row w-full justify-between lg:justify-around px-10 md:px-20 items-center h-14 bg-background shadow-lg">
+          <nav className="flex flex-row w-full justify-between lg:justify-around px-10 md:px-20 items-center h-14 bg-background shadow-lg">
             <div className="flex items-center gap-5">
               <label htmlFor="my-drawer" className="cursor-pointer lg:hidden">
                 <GiHamburgerMenu className="size-5" />
@@ -53,7 +53,7 @@ const MainLayout = () => {
                 </ul>
               </div>
             </div>
-          </div>
+          </nav>
         </header>
 
         <main className="flex-1 p-4">
