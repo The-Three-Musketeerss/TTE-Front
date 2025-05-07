@@ -35,7 +35,7 @@ const OrdersPage = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold">My Orders</h1>
+        <h1 className="text-2xl font-semibold text-primary">My Orders</h1>
       </div>
 
       <Table headers={headers} data={orders} />
