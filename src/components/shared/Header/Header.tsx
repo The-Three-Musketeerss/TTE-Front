@@ -3,13 +3,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUserCircle } from "react-icons/fa";
 
-
 type HeaderProps = {
   userRole: string;
-}
+};
 
 const Header = ({ userRole }: HeaderProps) => {
-  const isShopper = userRole === "Shopper";
+  const canSeeEmployeePortal = userRole === "Admin" || userRole === "Employee";
 
   return (
     <header className="flex flex-col">
@@ -49,7 +48,7 @@ const Header = ({ userRole }: HeaderProps) => {
               <li>
                 <Link to="/my-orders" className="menu-hover">My orders</Link>
               </li>
-              {!isShopper && (
+              {canSeeEmployeePortal && (
                 <li>
                   <Link to="/employee" className="lg:hidden menu-hover">Employee portal</Link>
                 </li>
@@ -60,7 +59,7 @@ const Header = ({ userRole }: HeaderProps) => {
             </ul>
           </div>
 
-          {!isShopper && (
+          {canSeeEmployeePortal && (
             <Link
               to="/employee"
               className="hidden lg:inline-block ml-4 bg-primary text-white px-3 py-1 rounded-md font-medium"

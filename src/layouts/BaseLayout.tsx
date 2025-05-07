@@ -2,7 +2,11 @@ import { Link, Outlet } from "react-router-dom";
 import { HiXMark } from "react-icons/hi2";
 import Header from "@components/shared/Header/Header";
 
-const AdminLayout = () => {
+type BaseLayoutProps = {
+  showFooter?: boolean;
+};
+
+const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
   const userRole = "Admin";
 
   return (
@@ -12,9 +16,15 @@ const AdminLayout = () => {
       <div className="drawer-content flex flex-col h-screen">
         <Header userRole={userRole} />
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 px-16 pt-4 pb-4 lg:px-32 lg:pb-8">
           <Outlet />
         </main>
+
+        {showFooter && (
+          <footer className="bg-gray-100 text-center py-4 mt-auto">
+            <p className="text-sm text-gray-600">© 2025 Tech Trend Emporium</p>
+          </footer>
+        )}
       </div>
 
       <div className="drawer-side z-40">
@@ -29,7 +39,7 @@ const AdminLayout = () => {
           </label>
 
           <ul className="menu mt-10 space-y-2 text-base-content">
-            <li><Link to="wishlist">Wishlist</Link></li>
+            <li><Link to="/wishlist">Wishlist</Link></li>
             <li><Link to="/categories">Categories</Link></li>
             <li><Link to="/shop-list">Shop list</Link></li>
           </ul>
@@ -39,4 +49,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default BaseLayout;
