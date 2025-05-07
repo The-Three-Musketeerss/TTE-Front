@@ -1,0 +1,42 @@
+import Button from "@components/shared/Button/Button";
+import BaseInput from "@components/shared/BaseInput/BaseInput";
+import { useForm } from "react-hook-form";
+import { ProductResolver } from "./CreateProduct.resolver";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const CreateProduct = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(ProductResolver),
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md mx-auto">
+      <h3 className="text-2xl mb-7">Create Category</h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <BaseInput
+          register={register("title")}
+          error={errors.title}
+          label="Name"
+        />
+        <BaseInput
+          register={register("price")}
+          error={errors.price}
+          label="Price"
+          type="number"
+          placeholder="0.00"
+        />
+        <Button type="submit" text="Add" />
+      </form>
+    </div>
+  );
+};
+
+export default CreateProduct;
