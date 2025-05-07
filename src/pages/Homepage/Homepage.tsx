@@ -38,7 +38,7 @@ const EmployeeHomePage = () => {
       </h1>
       {component ? (
         <>
-        <p className="text-primary hover:cursor-pointer absolute top-10 left-10" onClick={() => setComponent(null)}>{"<Back"}</p>
+        <p className="text-primary font-bold hover:cursor-pointer absolute top-10 left-10" onClick={() => setComponent(null)}>{"<Back"}</p>
         {React.createElement(component)}
         </>
       ) : (
