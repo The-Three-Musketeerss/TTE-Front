@@ -1,5 +1,5 @@
 import Button from "@components/shared/Button/Button";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
 
