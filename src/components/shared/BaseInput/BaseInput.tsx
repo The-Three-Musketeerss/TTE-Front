@@ -11,7 +11,6 @@ const BaseInput = ({
   label = "",
   placeholder = "",
   error,
-  type = "text",
   register,
 }: BaseInputProps) => {
   return (
@@ -20,7 +19,6 @@ const BaseInput = ({
       <input
         {...register}
         className="rounded-md outline-1 py-2.5 px-4"
-        type={type}
         placeholder={placeholder}
       />
       {error && <p className="text-red-600">{error.message}</p>}
