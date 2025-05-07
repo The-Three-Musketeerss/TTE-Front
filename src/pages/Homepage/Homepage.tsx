@@ -2,11 +2,12 @@ import Button from "@components/shared/Button/Button";
 import React, { useState } from "react";
 
 import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
+import CreateProduct from "@components/Homepage/CreateProduct/CreateProduct";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
   const buttonList = [
-    { text: "Create Product", component: null },
+    { text: "Create Product", component: CreateProduct },
     { text: "Create Category", component: CreateCategory },
     { text: "List Products", component: null },
     { text: "List Categories", component: null },
@@ -27,7 +28,7 @@ const EmployeeHomePage = () => {
   };
 
   return (
-    <section className="bg-background p-16 xl:p-56 flex flex-col items-center h-screen relative">
+    <section className="bg-background px-16 xl:px-56 flex flex-col items-center h-screen relative">
       <h1 className="text-primary font-semibold text-center text-4xl xl:text-[56px] mb-16 xl:mb-28">
 
         Employee Portal
