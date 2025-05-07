@@ -1,4 +1,3 @@
-// src/pages/OrdersPage.jsx
 import Table from '@components/shared/Table/Table';
 
 const OrdersPage = () => {
