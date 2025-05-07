@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { HiXMark } from "react-icons/hi2";
 import Header from "@components/shared/Header/Header";
+import Footer from "@components/shared/Footer/Footer";
 
 type BaseLayoutProps = {
   showFooter?: boolean;
@@ -21,9 +22,7 @@ const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
         </main>
 
         {showFooter && (
-          <footer className="bg-gray-100 text-center py-4 mt-auto">
-            <p className="text-sm text-gray-600">© 2025 Tech Trend Emporium</p>
-          </footer>
+          <Footer/>
         )}
       </div>
 
