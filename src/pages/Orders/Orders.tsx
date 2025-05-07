@@ -33,7 +33,7 @@ const OrdersPage = () => {
   ];
 
   return (
-    <div className="bg-gray-100 min-h-screen px-40">
+    <div className="bg-gray-100 min-h-screen px-10 lg:px-40">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold">My Orders</h1>
       </div>
