@@ -12,7 +12,7 @@ const EmployeeHomePage = () => {
   ];
 
   return (
-    <section className="bg-background p-16 lg:p-56 flex flex-col items-center h-screen">
+    <section className="bg-background flex flex-col items-center">
       <h1 className="text-primary font-semibold text-4xl lg:text-[56px] mb-28">
         Employee Portal
       </h1>
