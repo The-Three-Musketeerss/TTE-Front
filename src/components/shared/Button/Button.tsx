@@ -6,7 +6,7 @@ const Button = ({ text }: ButtonProps) => {
   return (
     <button
       type="button"
-      className="text-white bg-gradient-to-r from-primary via-secondary to-accent hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm lg:text-lg px-5 py-3 text-center me-2 mb-2"
+      className="text-white bg-primary hover:bg-secondary font-medium rounded-lg text-sm lg:text-lg px-5 py-3 text-center me-2 mb-2"
     >
       {text}
     </button>
