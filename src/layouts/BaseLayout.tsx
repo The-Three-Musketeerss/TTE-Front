@@ -16,7 +16,7 @@ const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
       <div className="drawer-content flex flex-col h-screen">
         <Header userRole={userRole} />
 
-        <main className="flex-1 px-16 pt-4 pb-4 lg:px-32 lg:pb-8">
+        <main className="flex-1 px-16 pt-32 pb-4 lg:px-32 lg:pb-8">
           <Outlet />
         </main>
 
