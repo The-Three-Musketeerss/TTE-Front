@@ -29,6 +29,7 @@ const EmployeeHomePage = () => {
   return (
     <section className="bg-background p-16 xl:p-56 flex flex-col items-center h-screen relative">
       <h1 className="text-primary font-semibold text-center text-4xl xl:text-[56px] mb-16 xl:mb-28">
+
         Employee Portal
       </h1>
       {component ? (
