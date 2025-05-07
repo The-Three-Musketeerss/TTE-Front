@@ -26,11 +26,6 @@ const EmployeeHomePage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Component changed:", component);
-  }
-, [component]);
-
   return (
     <section className="bg-background p-16 xl:p-56 flex flex-col items-center h-screen relative">
       <h1 className="text-primary font-semibold text-center text-4xl xl:text-[56px] mb-16 xl:mb-28">
@@ -38,8 +33,13 @@ const EmployeeHomePage = () => {
       </h1>
       {component ? (
         <>
-        <p className="text-primary font-bold hover:cursor-pointer absolute top-10 left-10" onClick={() => setComponent(null)}>{"<Back"}</p>
-        {React.createElement(component)}
+          <p
+            className="text-primary font-bold hover:cursor-pointer absolute top-10 left-10"
+            onClick={() => setComponent(null)}
+          >
+            {"<Back"}
+          </p>
+          {React.createElement(component)}
         </>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-24">
