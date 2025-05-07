@@ -50,7 +50,7 @@ const CreateProduct = () => {
           label="Image URL"
           placeholder="https://example.com/image.jpg"
         />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <BaseInput
             register={register("total")}
             error={errors.total}
