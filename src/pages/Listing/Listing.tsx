@@ -1,3 +1,4 @@
+import Button from "@components/shared/Button/Button";
 import Checkbox from "@components/shared/Checkbox/Checkbox";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
@@ -10,20 +11,33 @@ const Listing = () => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [sorting, setSorting] = useState<"none" | "price" | "title">("none");
+  const [sorting, setSorting] = useState<"" | "price" | "title">("");
+  const [pagination, setPagination] = useState({
+    page: 1,
+    totalPages: 1,
+  });
+
+  
   const loading = products.length === 0;
   const count = products.length;
 
   useEffect(() => {
     const fetchData = async () => {
-      const catresponse = await getCategories();
-      setCategories(catresponse.data);
-
-      const response = await getProducts({});
+      const response = await getProducts({category: selectedCategory, sort: sorting, page: 1});
       setProducts(response.data);
+      setPagination({page: response.page, totalPages: response.totalPages});
     };
 
     fetchData();
+  }, [selectedCategory, sorting]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await getCategories();
+      setCategories(response.data);
+    };
+
+    fetchCategories();
   }, []);
 
   const handleCategorySelect = (category: string) => {
@@ -32,14 +46,13 @@ const Listing = () => {
     );
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getProducts({category: selectedCategory, sort: sorting});
-      setProducts(response.data);
-    };
+  const handleLoadMore = () => {
+    setPagination((prev) => ({ ...prev, page: prev.page + 1 }));
+    getProducts({category: selectedCategory, sort: sorting, page: pagination.page + 1}).then((response) => {
+      setProducts((prev) => [...prev, ...response.data]);
+    });
+  };
 
-    fetchData();
-  }, [selectedCategory, sorting]);
 
   return (
     <section className="flex flex-col items-center">
@@ -70,7 +83,7 @@ const Listing = () => {
         <div className="flex flex-col space-y-5 items-end">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn m-1">
-              Sort by {sorting === "none" ? "" : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
+              Sort by {sorting === "" ? "" : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
             </div>
             <ul
               tabIndex={0}
@@ -97,8 +110,10 @@ const Listing = () => {
                     price={product.price}
                     imageUrl={product.image}
                   />
-                ))}
+                ))
+                }
           </div>
+            {(!loading && pagination.totalPages !== pagination.page) && <Button onClick={handleLoadMore} text="Load more products" />}
         </div>
       </div>
     </section>
