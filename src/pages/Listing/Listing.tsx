@@ -56,7 +56,7 @@ const Listing = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <h2 className="font-semibold text-lg lg:text-4xl mb-4 lg:mb-8">
+      <h2 className="font-semibold text-3xl lg:text-4xl mb-4 lg:mb-8">
         Shop List
       </h2>
       <div className="flex flex-row justify-between items-baseline mb-4 lg:mb-8">
