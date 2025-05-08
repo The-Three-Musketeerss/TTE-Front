@@ -40,7 +40,7 @@ const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
           <ul className="menu mt-10 space-y-2 text-base-content">
             <li><Link to="/wishlist">Wishlist</Link></li>
             <li><Link to="/categories">Categories</Link></li>
-            <li><Link to="/shop-list">Shop list</Link></li>
+            <li><Link to="/listing">Shop list</Link></li>
           </ul>
         </div>
       </div>

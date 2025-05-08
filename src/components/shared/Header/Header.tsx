@@ -26,7 +26,7 @@ const Header = ({ userRole }: HeaderProps) => {
           <Link to="/#" className="font-extrabold desktop-only">Tech Trend Emporium</Link>
           <Link to="/wishlist" className="desktop-only">Wishlist</Link>
           <Link to="/categories" className="desktop-only">Categories</Link>
-          <Link to="/shop-list" className="desktop-only">Shop list</Link>
+          <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
 
         <div className="flex-row-center gap-3">

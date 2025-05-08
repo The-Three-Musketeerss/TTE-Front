@@ -9,6 +9,7 @@ import Wishlist from '@pages/Wishlist/Wishlist';
 import Landing from '@pages/Landing/Landing';
 import Users from "@pages/Users/Users";
 import NotFound from "@pages/NotFound/NotFound";
+import Listing from "@pages/Listing/Listing";
 
 const root = document.getElementById("root");
 
@@ -16,14 +17,15 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
       <Route element={<BaseLayout />}>
-        <Route path="/" element={<EmployeeHomePage/>}/>
+        <Route path="/employeehome" element={<EmployeeHomePage/>}/>
         <Route path="/users" element={<Users/>}/>
       </Route>
 
       <Route element={<BaseLayout showFooter/>}>
+        <Route path="/" element={<Landing/>} />
         <Route path="/orders" element={<Orders/>} />
         <Route path="/wishlist" element={<Wishlist/>} />
-        <Route path="/landing" element={<Landing/>} />
+        <Route path="/listing" element={<Listing/>} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
