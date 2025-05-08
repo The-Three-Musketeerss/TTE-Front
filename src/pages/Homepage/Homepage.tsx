@@ -28,9 +28,8 @@ const EmployeeHomePage = () => {
   };
 
   return (
-    <section className="bg-background px-16 xl:px-56 flex flex-col items-center h-screen relative">
+    <section className="bg-background flex flex-col items-center relative">
       <h1 className="text-primary font-semibold text-center text-4xl xl:text-[56px] mb-16 xl:mb-28">
-
         Employee Portal
       </h1>
       {component ? (
@@ -44,7 +43,7 @@ const EmployeeHomePage = () => {
           {React.createElement(component)}
         </>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-14">
           {buttonList.map((button, index) => (
             <Button
               key={index}
