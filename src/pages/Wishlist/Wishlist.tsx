@@ -1,5 +1,5 @@
 import Button from "@components/shared/Button/Button";
-import WishlistCard from "@components/Wishlist/WishlistCard/WishlistCard";
+import ProductCard from "@components/shared/ProductCard/ProductCard";
 
 interface WishlistItem {
   id: number;
@@ -26,7 +26,7 @@ const Wishlist = () => {
       {wishlistItems.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-6xl">
           {wishlistItems.map((item) => (
-            <WishlistCard
+            <ProductCard
               key={item.id}
               name={item.name}
               price={item.price}

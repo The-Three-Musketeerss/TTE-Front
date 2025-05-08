@@ -6,7 +6,7 @@ type WishlistCardProps = {
   imageUrl: string;
 };
 
-const WishlistCard = ({ name, price, imageUrl }: WishlistCardProps) => {
+const ProductCard = ({ name, price, imageUrl }: WishlistCardProps) => {
   return (
     <div className="card bg-base-100 shadow p-4 rounded-lg">
       <figure>
@@ -25,4 +25,4 @@ const WishlistCard = ({ name, price, imageUrl }: WishlistCardProps) => {
   );
 };
 
-export default WishlistCard;
+export default ProductCard;
