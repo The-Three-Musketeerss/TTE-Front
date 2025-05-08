@@ -4,7 +4,7 @@ export type CategoryProps = {
 }
 
 export type ProductProps = {
-    id: number;
+    id?: number;
     title: string;
     price: number;
     description?: string;

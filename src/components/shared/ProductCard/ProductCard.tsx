@@ -1,20 +1,20 @@
+import { ProductProps } from "@utils/types";
 import { AiFillHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-type WishlistCardProps = {
-  name: string;
-  price: number;
-  imageUrl: string;
-};
-
-const ProductCard = ({ name, price, imageUrl }: WishlistCardProps) => {
+const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/listing/${id}`);
+  };
   return (
-    <div className="card bg-base-100 shadow p-4 rounded-lg">
+    <div onClick={handleCardClick} className="card bg-base-100 shadow p-4 rounded-lg cursor-pointer">
       <figure>
-        <img src={imageUrl} alt={name} className="w-full h-64 object-cover rounded mb-4" />
+        <img src={image} alt={title} className="w-full h-64 object-cover rounded mb-4" />
       </figure>
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="font-semibold">{name}</h3>
+          <h3 className="font-semibold">{title}</h3>
           <p>${price}</p>
         </div>
         <button className="text-black hover:text-error transition-colors">
