@@ -113,7 +113,11 @@ const Listing = () => {
                 ))
                 }
           </div>
-            {(!loading && pagination.totalPages !== pagination.page) && <Button onClick={handleLoadMore} text="Load more products" />}
+            {(!loading && pagination.totalPages !== pagination.page) && (
+              <div className="w-full flex justify-center mt-4">
+              <Button onClick={handleLoadMore} text="Load more products" />
+              </div>
+            )}
         </div>
       </div>
     </section>
