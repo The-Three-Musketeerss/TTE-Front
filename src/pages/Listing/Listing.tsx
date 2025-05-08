@@ -1,6 +1,8 @@
 import Checkbox from "@components/shared/Checkbox/Checkbox";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
+import { getCategories } from "@services/CategoryServices";
+import { getProducts } from "@services/ProductServices";
 import { CategoryProps, ProductProps } from "@utils/types";
 import { useEffect, useState } from "react";
 
@@ -13,13 +15,15 @@ const Listing = () => {
   const count = products.length;
 
   useEffect(() => {
-    const dummyCategories = [
-      { id: 1, name: "Electronics" },
-      { id: 2, name: "Books" },
-      { id: 3, name: "Clothing" },
-      { id: 4, name: "Home & Kitchen" },
-    ];
-    setCategories(dummyCategories);
+    const fetchData = async () => {
+      const catresponse = await getCategories();
+      setCategories(catresponse.data);
+
+      const response = await getProducts();
+      setProducts(response.data);
+    };
+
+    fetchData();
   }, []);
 
   const handleCategorySelect = (category: string) => {
@@ -34,7 +38,7 @@ const Listing = () => {
         Shop List
       </h2>
       <div className="flex flex-row justify-between items-baseline mb-4 lg:mb-8">
-        <aside className="hidden lg:block lg:w-1/4 xl:w-1/6 bg-white p-4 rounded-lg shadow-md mb-8">
+        <aside className="hidden lg:block lg:min-w-1/4 xl:min-w-1/6 bg-white p-4 rounded-lg shadow-md mb-8 mr-28">
           <span className="flex flex-row justify-between items-center mb-2 lg:mb-4">
             <h3 className="font-semibold text-lg">Filters</h3>
             <h4
@@ -72,7 +76,7 @@ const Listing = () => {
             </ul>
           </div>
           <p className="text-sm text-primary">Showing {count} Products</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 max-w-">
             {loading
               ? ([1, 2, 3, 4, 5, 6] as number[]).map((index) => (
                   <Skeleton key={index} />
