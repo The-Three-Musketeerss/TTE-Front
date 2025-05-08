@@ -33,7 +33,7 @@ const Listing = () => {
   };
 
   return (
-    <section className="">
+    <section className="flex flex-col items-center">
       <h2 className="font-semibold text-lg lg:text-4xl mb-4 lg:mb-8">
         Shop List
       </h2>
@@ -61,7 +61,7 @@ const Listing = () => {
         <div className="flex flex-col space-y-5 items-end">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn m-1">
-              Sort by {sorting === "none" ? "" : sorting}
+              Sort by {sorting === "none" ? "" : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
             </div>
             <ul
               tabIndex={0}

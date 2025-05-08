@@ -17,14 +17,14 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
       <Route element={<BaseLayout />}>
-        <Route path="/" element={<EmployeeHomePage/>}/>
+        <Route path="/employeehome" element={<EmployeeHomePage/>}/>
         <Route path="/users" element={<Users/>}/>
       </Route>
 
       <Route element={<BaseLayout showFooter/>}>
+        <Route path="/" element={<Landing/>} />
         <Route path="/orders" element={<Orders/>} />
         <Route path="/wishlist" element={<Wishlist/>} />
-        <Route path="/landing" element={<Landing/>} />
         <Route path="/listing" element={<Listing/>} />
       </Route>
 
