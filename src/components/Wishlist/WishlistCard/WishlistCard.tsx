@@ -2,7 +2,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 type WishlistCardProps = {
   name: string;
-  price: string;
+  price: number;
   imageUrl: string;
 };
 
@@ -15,7 +15,7 @@ const WishlistCard = ({ name, price, imageUrl }: WishlistCardProps) => {
       <div className="flex justify-between items-center">
         <div>
           <h3 className="font-semibold">{name}</h3>
-          <p>{price}</p>
+          <p>${price}</p>
         </div>
         <button className="text-black hover:text-error transition-colors">
           <AiFillHeart className="icon-size" />
