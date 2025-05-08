@@ -13,12 +13,7 @@ const Carousel = () => {
       imgUrl:
         "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1500&q=80",
       alt: "Notebook and coffee",
-    },
-    {
-      imgUrl:
-        "https://images.unsplash.com/photo-1602526217033-3ec78c9f53c4?auto=format&fit=crop&w=1500&q=80",
-      alt: "Office setup",
-    },
+    }
   ];
 
   const goToSlide = (index: number) => {
