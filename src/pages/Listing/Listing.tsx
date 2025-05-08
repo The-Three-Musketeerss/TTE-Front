@@ -19,7 +19,7 @@ const Listing = () => {
       const catresponse = await getCategories();
       setCategories(catresponse.data);
 
-      const response = await getProducts();
+      const response = await getProducts({});
       setProducts(response.data);
     };
 
@@ -31,6 +31,15 @@ const Listing = () => {
       categories.find((cat) => cat.name === category)?.name || ""
     );
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getProducts({category: selectedCategory, sort: sorting});
+      setProducts(response.data);
+    };
+
+    fetchData();
+  }, [selectedCategory, sorting]);
 
   return (
     <section className="flex flex-col items-center">
