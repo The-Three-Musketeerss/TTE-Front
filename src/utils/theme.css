@@ -9,6 +9,8 @@
     --color-secondary: #455A64;
     --color-accent: #B0BEC5;
     --color-background: #F7F7F7;
+    --color-base-300: #E0E0E0; /* General background for skeleton */
+    --color-base-100: #F5F5F5; /* Moving shimmer color */
 }
 
 @layer base {
