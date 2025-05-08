@@ -25,7 +25,7 @@ ReactDOM.createRoot(root!).render(
         <Route path="/orders" element={<Orders/>} />
         <Route path="/wishlist" element={<Wishlist/>} />
         <Route path="/landing" element={<Landing/>} />
-        <Route path="/products" element={<Listing/>} />
+        <Route path="/listing" element={<Listing/>} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
