@@ -1,6 +1,6 @@
 import Table from '@components/shared/Table/Table';
 
-const OrdersPage = () => {
+const Orders = () => {
   const headers = [
     { label: 'Order No.', key: 'orderNo' },
     { label: 'Customer Name', key: 'customerName' },
@@ -43,4 +43,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default Orders;
