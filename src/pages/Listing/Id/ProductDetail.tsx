@@ -1,3 +1,4 @@
+import ProductDetailSkeleton from "@components/ProductDetail/ProductDetailSkeleton";
 import ProductInfo from "@components/ProductDetail/ProductInfo";
 import Button from "@components/shared/Button/Button";
 import { getProductById } from "@services/ProductServices";
@@ -26,7 +27,8 @@ const ProductDetail = () => {
 
   return (
     <section className="text-primary">
-    {product && <ProductInfo {...product} />}
+      {loading && <ProductDetailSkeleton />}
+      {product && <ProductInfo {...product} />}
     </section>
   );
 };
