@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
 import CreateProduct from "@components/Homepage/CreateProduct/CreateProduct";
+import ReviewJobs from "@components/Homepage/ReviewJobs/ReviewJobs";
+import Users from "@pages/Users/Users";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
@@ -11,9 +13,9 @@ const EmployeeHomePage = () => {
     { text: "Create Category", component: CreateCategory },
     { text: "List Products", component: null },
     { text: "List Categories", component: null },
-    { text: "Review Jobs", component: null },
+    { text: "Review Jobs", component: ReviewJobs },
     { text: "Create Employee", component: null },
-    { text: "View All Users", component: null },
+    { text: "View All Users", component: Users },
   ];
 
   const handleButtonClick = (button: {
@@ -29,7 +31,7 @@ const EmployeeHomePage = () => {
 
   return (
     <section className="bg-background flex flex-col items-center relative">
-      <h1 className="text-primary font-semibold text-center text-4xl xl:text-[56px] mb-16 xl:mb-28">
+      <h1 className="text-primary font-semibold text-center text-4xl xl:text-5xl mb-16 xl:mb-28">
         Employee Portal
       </h1>
       {component ? (

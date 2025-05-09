@@ -18,8 +18,7 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
       <Route element={<BaseLayout />}>
-        <Route path="/employeehome" element={<EmployeeHomePage/>}/>
-        <Route path="/users" element={<Users/>}/>
+        <Route path="/employee" element={<EmployeeHomePage/>}/>
       </Route>
 
       <Route element={<BaseLayout showFooter/>}>
