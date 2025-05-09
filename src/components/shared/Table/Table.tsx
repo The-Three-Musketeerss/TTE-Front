@@ -11,7 +11,7 @@ type TableProps = {
 
 const Table: React.FC<TableProps> = ({ headers, data, rowKey = "id" }) => {
   return (
-    <div className="bg-white rounded-lg shadow overflow-x-auto">
+    <div className="bg-white rounded-lg shadow overflow-x-auto w-full">
       <table className="min-w-full text-sm">
         <thead className="bg-gray-50 text-left font-semibold text-black">
           <tr>

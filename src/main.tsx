@@ -7,7 +7,6 @@ import EmployeeHomePage from '@pages/Homepage/Homepage';
 import Orders from '@pages/Orders/Orders';
 import Wishlist from '@pages/Wishlist/Wishlist';
 import Landing from '@pages/Landing/Landing';
-import Users from "@pages/Users/Users";
 import NotFound from "@pages/NotFound/NotFound";
 import Listing from "@pages/Listing/Listing";
 import ProductDetail from "@pages/Listing/Id/ProductDetail";
@@ -18,8 +17,7 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
       <Route element={<BaseLayout />}>
-        <Route path="/employeehome" element={<EmployeeHomePage/>}/>
-        <Route path="/users" element={<Users/>}/>
+        <Route path="/employee" element={<EmployeeHomePage/>}/>
       </Route>
 
       <Route element={<BaseLayout showFooter/>}>
