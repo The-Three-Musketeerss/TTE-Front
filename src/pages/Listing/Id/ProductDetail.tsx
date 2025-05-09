@@ -1,6 +1,5 @@
 import ProductDetailSkeleton from "@components/ProductDetail/ProductDetailSkeleton";
 import ProductInfo from "@components/ProductDetail/ProductInfo";
-import Button from "@components/shared/Button/Button";
 import { getProductById } from "@services/ProductServices";
 import { ProductProps } from "@utils/types";
 import { useEffect, useState } from "react";
