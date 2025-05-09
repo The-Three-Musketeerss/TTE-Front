@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProductDetailSkeleton = () => {
   return (
     <div className="flex flex-col items-center space-y-16 lg:flex-row lg:space-x-32 lg:items-start lg:justify-center p-4">
