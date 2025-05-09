@@ -28,9 +28,9 @@ const Wishlist = () => {
           {wishlistItems.map((item) => (
             <ProductCard
               key={item.id}
-              name={item.name}
+              title={item.name}
               price={item.price}
-              imageUrl={item.imageUrl}
+              image={item.imageUrl}
             />
           ))}
         </div>

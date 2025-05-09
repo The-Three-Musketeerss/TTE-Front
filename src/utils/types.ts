@@ -4,10 +4,11 @@ export type CategoryProps = {
 }
 
 export type ProductProps = {
-    id: number;
+    id?: number;
     title: string;
     price: number;
     description?: string;
     category?: string;
     image: string;
+    inventory?: {total: number, available: number};
 }
