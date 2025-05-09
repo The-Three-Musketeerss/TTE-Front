@@ -10,4 +10,5 @@ export type ProductProps = {
     description?: string;
     category?: string;
     image: string;
+    inventory?: {total: number, available: number};
 }

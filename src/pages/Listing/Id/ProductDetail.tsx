@@ -1,3 +1,5 @@
+import ProductInfo from "@components/ProductDetail/ProductInfo";
+import Button from "@components/shared/Button/Button";
 import { getProductById } from "@services/ProductServices";
 import { ProductProps } from "@utils/types";
 import { useEffect, useState } from "react";
@@ -6,6 +8,7 @@ import { useParams } from "react-router-dom";
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<ProductProps>();
+  const loading = !product;
 
   const fetchProduct = async () => {
     if (!id) {
@@ -19,12 +22,11 @@ const ProductDetail = () => {
     fetchProduct().catch((error) => {
       console.error("Error fetching product:", error);
     });
-  }
-  , [id]);
+  }, [id]);
 
   return (
-    <section>
-      <h2 className="font-semibold text-3xl lg:text-4xl mb-4 lg:mb-8">{product?.title}</h2>
+    <section className="text-primary">
+    {product && <ProductInfo {...product} />}
     </section>
   );
 };
