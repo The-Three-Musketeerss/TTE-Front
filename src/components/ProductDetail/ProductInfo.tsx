@@ -9,7 +9,7 @@ const ProductInfo = (product: ProductProps) => {
   const [count, setCount] = useState(1);
 
   return (
-    <article className="lg:max-w-2/6 flex flex-col space-y-5">
+    <article className="lg:max-w-2/3 flex flex-col space-y-5">
       <span className="flex items-start justify-between">
         <h2 className="font-semibold text-3xl lg:text-4xl max-w-2/3">
           {product.title}
