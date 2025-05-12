@@ -1,21 +1,27 @@
-import { useEffect, useState } from "react";
 import Button from "@components/shared/Button/Button";
+import ButtonSkeleton from "@components/shared/Button/Skeleton/Skeleton";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getTopCategories } from "@services/CategoryServices";
 
 const TopCategories = () => {
   const [topCategories, setTopCategories] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopCategories = async () => {
+      setLoading(true);
       const response = await getTopCategories();
       setTopCategories(response.data);
+      setLoading(false);
     };
 
     fetchTopCategories();
   }, []);
 
   const handleClick = (category: string) => {
-    console.log(`Clicked category: ${category}`);
+    navigate(`/products?category=${encodeURIComponent(category)}`);
   };
 
   return (
@@ -28,14 +34,16 @@ const TopCategories = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 w-full max-w-4xl px-4">
-        {topCategories.map((category, index) => (
-          <Button
-            key={index}
-            text={category}
-            fullWidth={true}
-            onClick={() => handleClick(category)}
-          />
-        ))}
+        {loading
+          ? [1, 2, 3].map((i) => <ButtonSkeleton key={i} />)
+          : topCategories.map((category, index) => (
+              <Button
+                key={index}
+                text={category}
+                fullWidth={true}
+                onClick={() => handleClick(category)}
+              />
+            ))}
       </div>
     </section>
   );
