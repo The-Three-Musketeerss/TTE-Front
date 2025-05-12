@@ -46,7 +46,7 @@ const Header = ({ userRole }: HeaderProps) => {
               className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-lg w-40 mt-3"
             >
               <li>
-                <Link to="/my-orders" className="menu-hover">My orders</Link>
+                <Link to="/orders" className="menu-hover">My orders</Link>
               </li>
               {canSeeEmployeePortal && (
                 <li>
