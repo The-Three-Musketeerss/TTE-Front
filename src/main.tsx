@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import BaseLayout from "@layouts/BaseLayout";
+import AuthLayout from "@layouts/AuthLayout";
 //Pages
 import EmployeeHomePage from "@pages/Homepage/Homepage";
 import Orders from "@pages/Orders/Orders";
@@ -12,7 +13,7 @@ import ProductDetail from "@pages/Listing/Id/ProductDetail";
 import Login from "@pages/Login/Login";
 import { CookiesProvider } from "react-cookie";
 import { Toaster } from "react-hot-toast";
-import AuthLayout from "@layouts/AuthLayout";
+import Cart from "@pages/Cart/Cart";
 
 const root = document.getElementById("root");
 
@@ -31,6 +32,7 @@ ReactDOM.createRoot(root!).render(
 
         <Route element={<BaseLayout showFooter />}>
           <Route path="/" element={<Landing />} />
+          <Route path="/cart" element={<Cart/>} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/listing" element={<Listing />} />
