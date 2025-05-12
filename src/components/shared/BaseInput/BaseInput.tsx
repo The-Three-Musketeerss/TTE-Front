@@ -11,6 +11,7 @@ const BaseInput = ({
   label = "",
   placeholder = "",
   error,
+  type = "text",
   register,
 }: BaseInputProps) => {
   return (
@@ -18,6 +19,7 @@ const BaseInput = ({
       <legend className="text-primary text-lg">{label}</legend>
       <input
         {...register}
+        type={type}
         className="rounded-md outline-1 py-2.5 px-4"
         placeholder={placeholder}
       />
