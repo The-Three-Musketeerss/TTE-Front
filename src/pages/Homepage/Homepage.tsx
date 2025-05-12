@@ -1,13 +1,18 @@
 import Button from "@components/shared/Button/Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
 import CreateProduct from "@components/Homepage/CreateProduct/CreateProduct";
 import ReviewJobs from "@components/Homepage/ReviewJobs/ReviewJobs";
 import Users from "@pages/Users/Users";
+import { useGetUser } from "@hooks/useGetUser";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
+  const {hasLoggedIn, user} = useGetUser();
+  const navigate = useNavigate();
+
   const buttonList = [
     { text: "Create Product", component: CreateProduct },
     { text: "Create Category", component: CreateCategory },
@@ -28,6 +33,17 @@ const EmployeeHomePage = () => {
       console.log(`${button.text} button clicked`);
     }
   };
+
+  useEffect(() => {
+    if (!hasLoggedIn) {
+      navigate("/login", { replace: true });
+    }
+
+    if (hasLoggedIn && user?.role !== "Admin") {
+      navigate("/", { replace: true });
+    }
+
+  }, [hasLoggedIn, user]);
 
   return (
     <section className="bg-background flex flex-col items-center relative">

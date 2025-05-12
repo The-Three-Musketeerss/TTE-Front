@@ -5,9 +5,10 @@ import Footer from "@components/shared/Footer/Footer";
 
 type BaseLayoutProps = {
   showFooter?: boolean;
+  showHeader?: boolean;
 };
 
-const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
+const BaseLayout = ({ showFooter = false, showHeader = true }: BaseLayoutProps) => {
   const userRole = "Admin";
 
   return (
@@ -15,7 +16,9 @@ const BaseLayout = ({ showFooter = false }: BaseLayoutProps) => {
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col h-screen">
-        <Header userRole={userRole} />
+        {showHeader && (
+          <Header userRole={userRole} />
+        )}
 
         <main className="flex-1 px-16 pt-32 pb-4 lg:px-32 lg:pb-8">
           <Outlet />
