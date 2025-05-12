@@ -12,6 +12,7 @@ import ProductDetail from "@pages/Listing/Id/ProductDetail";
 import Login from "@pages/Login/Login";
 import { CookiesProvider } from "react-cookie";
 import { Toaster } from "react-hot-toast";
+import AuthLayout from "@layouts/AuthLayout";
 
 const root = document.getElementById("root");
 
@@ -24,7 +25,7 @@ ReactDOM.createRoot(root!).render(
           <Route path="/employee" element={<EmployeeHomePage />} />
         </Route>
 
-        <Route element={<BaseLayout showHeader={false} />}>
+        <Route element={<AuthLayout/>}>
           <Route path="/login" element={<Login />} />
         </Route>
 

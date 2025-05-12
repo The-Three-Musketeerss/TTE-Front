@@ -3,7 +3,7 @@ import { decodeJwt } from "@utils/functions";
 
 
 export const useGetUser = () => {
-    const [cookie, setCookie, removeCookie] = useCookies(['session']);
+    const [cookie] = useCookies(['session']);
     const decoded = cookie.session && decodeJwt(cookie.session.token);
     const user = cookie.session
         ? {
