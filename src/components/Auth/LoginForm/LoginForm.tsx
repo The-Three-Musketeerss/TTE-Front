@@ -6,6 +6,7 @@ import { LoginResolver } from "./LoginForm.resolver";
 import { Login } from "@services/AuthServices";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [cookies, setCookie] = useCookies(["session"]);
@@ -18,19 +19,23 @@ const LoginForm = () => {
     resolver: yupResolver(LoginResolver),
   });
 
-  const onSubmit = async (data: any) => {
-    await Login(data.email, data.password)
-      .then((response) => {
-        setCookie("session", response.data, {
-            maxAge: 3600,
-            path: "/",
-        });
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        console.error("error");
-      });
-  };
+const onSubmit = async (data: any) => {
+    toast.promise(
+        Login(data.email, data.password)
+            .then((response) => {
+                setCookie("session", response.data, {
+                    maxAge: 3600,
+                    path: "/",
+                });
+                navigate("/", { replace: true });
+            }),
+        {
+            loading: "Logging in...",
+            success: "Login successful",
+            error: (error) => error.message,
+        }
+    );
+};
 
   return (
     <div className="bg-white flex flex-col space-y-2 rounded-lg shadow-lg p-8 lg:w-1/2">
