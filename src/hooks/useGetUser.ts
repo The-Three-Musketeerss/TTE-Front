@@ -10,6 +10,7 @@ export const useGetUser = () => {
               username: cookie.session.username,
               email: cookie.session.email,
               role: decoded.role,
+              token: cookie.session.token,
           }
         : null;
     const hasLoggedIn = !!user;
