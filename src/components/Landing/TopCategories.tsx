@@ -1,12 +1,19 @@
+import { useEffect, useState } from "react";
 import Button from "@components/shared/Button/Button";
-
-const topCategories = [
-  { id: 1, name: "Shoes" },
-  { id: 2, name: "Jackets" },
-  { id: 3, name: "Accessories" },
-];
+import { getTopCategories } from "@services/CategoryServices";
 
 const TopCategories = () => {
+  const [topCategories, setTopCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchTopCategories = async () => {
+      const response = await getTopCategories();
+      setTopCategories(response.data);
+    };
+
+    fetchTopCategories();
+  }, []);
+
   const handleClick = (category: string) => {
     console.log(`Clicked category: ${category}`);
   };
@@ -21,12 +28,12 @@ const TopCategories = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 w-full max-w-4xl px-4">
-        {topCategories.map((category) => (
+        {topCategories.map((category, index) => (
           <Button
-            key={category.id}
-            text={category.name}
+            key={index}
+            text={category}
             fullWidth={true}
-            onClick={() => handleClick(category.name)}
+            onClick={() => handleClick(category)}
           />
         ))}
       </div>

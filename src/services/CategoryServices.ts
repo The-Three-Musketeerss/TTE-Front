@@ -4,3 +4,9 @@ export const getCategories = async () => {
     const data = await response.json();
     return data;
 }
+
+export const getTopCategories = async () => {
+    const response = await fetch(`${rootUrl}/api/categories/top`);
+    const data = await response.json();
+    return data;
+}

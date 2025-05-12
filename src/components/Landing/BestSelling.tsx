@@ -1,31 +1,21 @@
+import { useEffect, useState } from "react";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Button from "@components/shared/Button/Button";
-
-const bestSellers = [
-  {
-    id: 1,
-    title: "Sandals",
-    price: 99,
-    image:
-      "https://media.istockphoto.com/id/1804088535/photo/legs-of-an-asian-woman.jpg?s=1024x1024&w=is&k=20&c=ekRY6b7hto8K1H8Om585jcEMr2GRmNUZyZWrIRotmrg=",
-  },
-  {
-    id: 2,
-    title: "Pants",
-    price: 99,
-    image:
-      "https://plus.unsplash.com/premium_photo-1673977134363-c86a9d5dcafa?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    title: "Sweater",
-    price: 99,
-    image:
-      "https://media.istockphoto.com/id/1975908052/photo/portrait-of-beautiful-young-woman-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5TZg7R-lhZO5TiqgVL4IEVjxjckp0pv5TeVaXPG5Hf4=",
-  },
-];
+import { getTopSellingProducts } from "@services/ProductServices";
+import { ProductProps } from "@utils/types";
 
 const BestSelling = () => {
+  const [bestSellers, setBestSellers] = useState<ProductProps[]>([]);
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      const response = await getTopSellingProducts();
+      setBestSellers(response.data);
+    };
+
+    fetchBestSellers();
+  }, []);
+
   return (
     <section className="flex flex-col items-center mt-20 mb-20">
       <h1 className="text-4xl font-semibold text-primary text-center mb-5">
