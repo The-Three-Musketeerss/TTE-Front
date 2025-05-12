@@ -10,6 +10,7 @@ import Landing from '@pages/Landing/Landing';
 import NotFound from "@pages/NotFound/NotFound";
 import Listing from "@pages/Listing/Listing";
 import ProductDetail from "@pages/Listing/Id/ProductDetail";
+import Login from "@pages/Login/Login";
 
 const root = document.getElementById("root");
 
@@ -19,6 +20,10 @@ ReactDOM.createRoot(root!).render(
       <Route element={<BaseLayout />}>
         <Route path="/employee" element={<EmployeeHomePage/>}/>
       </Route>
+
+      <Route element={<BaseLayout showHeader={false} />}>
+        <Route path="/login" element={<Login/>} />
+        </Route>
 
       <Route element={<BaseLayout showFooter/>}>
         <Route path="/" element={<Landing/>} />
