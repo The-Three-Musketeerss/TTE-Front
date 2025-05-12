@@ -1,8 +1,9 @@
 import { useGetUser } from "@hooks/useGetUser";
 import { getCart } from "@services/CartServices";
 import { CartItemProps } from "@utils/types";
-import { use, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import CartCard from "@components/shared/ProductCard/CartCard/CartCard";
 
 const Cart = () => {
   const [cart, setCart] = useState<CartItemProps>();
@@ -23,7 +24,7 @@ const Cart = () => {
     } else {
       navigate("/", { replace: true });
     }
-  }, [hasLoggedIn, user]);
+  }, [hasLoggedIn, user?.role]);
 
   if (cart?.shoppingCart.length === 0) {
     return (
@@ -38,6 +39,21 @@ const Cart = () => {
     return (
       <section>
         <h1 className="font-semibold text-4xl">Your Cart</h1>
+        <Link to={"/listing"} className="font-medium">
+          Not ready to checkout? Continue Shopping
+        </Link>
+        {cart?.shoppingCart.map((item) => (
+          <CartCard
+            title="test"
+            price={99}
+            image="https://via.placeholder.com/150"
+            key={item.productId}
+            id={item.productId}
+            quantity={item.quantity}
+            token={user?.token}
+            setCart={setCart}
+          />
+        ))}
       </section>
     );
   }
