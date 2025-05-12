@@ -17,3 +17,15 @@ export const getProductById = async (id: string) => {
     const data = await response.json();
     return data;
 }
+
+export const getLatestArrivals = async () => {
+    const response = await fetch(`${rootUrl}/api/products/latest`);
+    const data = await response.json();
+    return data;
+}
+
+export const getTopSellingProducts = async () => {
+    const response = await fetch(`${rootUrl}/api/products/top-selling`);
+    const data = await response.json();
+    return data;
+}
