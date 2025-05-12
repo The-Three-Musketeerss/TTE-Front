@@ -12,10 +12,8 @@ const Header = ({ userRole }: HeaderProps) => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="flex-row-center justify-around w-full h-9 bg-primary">
-        <span className="header-text hidden md:block">USD</span>
+      <div className="flex-row-center justify-center w-full h-9 bg-primary">
         <span className="header-text">FREE SHIPPING ON ALL ITEMS! MAY. 5–19.</span>
-        <span className="header-text hidden md:block">Support</span>
       </div>
 
       <div className="flex-row-center w-full justify-between lg:justify-around px-10 md:px-20 h-14 bg-background shadow-lg">
@@ -25,7 +23,6 @@ const Header = ({ userRole }: HeaderProps) => {
           </label>
           <Link to="/#" className="font-extrabold desktop-only">Tech Trend Emporium</Link>
           <Link to="/wishlist" className="desktop-only">Wishlist</Link>
-          <Link to="/categories" className="desktop-only">Categories</Link>
           <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
 
