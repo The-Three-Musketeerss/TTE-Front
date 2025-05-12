@@ -21,7 +21,7 @@ const TopCategories = () => {
   }, []);
 
   const handleClick = (category: string) => {
-    navigate(`/products?category=${encodeURIComponent(category)}`);
+    navigate(`/listing?category=${encodeURIComponent(category)}`);
   };
 
   return (
