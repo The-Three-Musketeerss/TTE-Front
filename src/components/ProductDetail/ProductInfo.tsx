@@ -4,7 +4,6 @@ import QuantityInput from "@components/shared/QuantityInput/QuantityInput";
 import { useGetUser } from "@hooks/useGetUser";
 import { addToCart } from "@services/CartServices";
 import { ProductProps } from "@utils/types";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { CiShare1 } from "react-icons/ci";
