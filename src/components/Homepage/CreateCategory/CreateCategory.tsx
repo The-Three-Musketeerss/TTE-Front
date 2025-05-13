@@ -1,7 +1,7 @@
 import Button from "@components/shared/Button/Button";
 import BaseInput from "@components/shared/BaseInput/BaseInput";
 import { useForm } from "react-hook-form";
-import { CategorySchema } from "./CreateCategory.schema";
+import { CategorySchema } from "./CreateCategory.resolver";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const CreateCategory = () => {
