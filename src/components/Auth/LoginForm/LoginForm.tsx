@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { LoginResolver } from "./LoginForm.resolver";
 import { Login } from "@services/AuthServices";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Checkbox from "@components/shared/Checkbox/Checkbox";
 
@@ -58,16 +58,21 @@ const LoginForm = () => {
           type="password"
         />
         <div className="flex items-center justify-between lg:justify-end lg:space-x-2 my-4">
-          <Checkbox value="Remember me"/>
-          <a href="#" className="text-xs lg:text-base text-primary font-light mb-1">
+          <Checkbox value="Remember me" />
+          <Link
+            to="/forgot-password"
+            className="text-xs lg:text-base text-primary font-light mb-1"
+          >
             Forgot password?
-          </a>
+          </Link>
         </div>
         <Button text="Login" type="submit" />
       </form>
       <p className="font-light text-gray-500 text-xs lg:text-base text-center">
         Don't have an Account?
-        <span className="font-semibold text-primary"> Register</span>
+        <Link to="/register" className="font-semibold text-primary ml-1">
+          Register
+        </Link>
       </p>
     </div>
   );
