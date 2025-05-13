@@ -10,3 +10,41 @@ export const getTopCategories = async () => {
     const data = await response.json();
     return data;
 }
+
+export const updateCategory = async (
+  id: string,
+  body: { name: string },
+  token: string
+) => {
+  const response = await fetch(`${rootUrl}/api/categories/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to update category");
+  }
+
+  return await response.json();
+};
+
+export const deleteCategory = async (id: number, token: string) => {
+  const response = await fetch(`${rootUrl}/api/categories/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to delete category");
+  }
+
+  return await response.json();
+};
