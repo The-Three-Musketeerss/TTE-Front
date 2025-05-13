@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
-  const {hasLoggedIn, user} = useGetUser();
+  const { hasLoggedIn, user } = useGetUser();
   const navigate = useNavigate();
 
   const buttonList = [
@@ -41,7 +41,7 @@ const EmployeeHomePage = () => {
       navigate("/login", { replace: true });
     }
 
-    if (hasLoggedIn && user?.role !== "Admin") {
+    if (hasLoggedIn && user?.role !== "Admin" && user?.role !== "Employee") {
       navigate("/", { replace: true });
     }
 
