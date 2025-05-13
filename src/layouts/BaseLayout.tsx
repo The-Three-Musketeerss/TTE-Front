@@ -10,7 +10,7 @@ type BaseLayoutProps = {
 };
 
 const BaseLayout = ({ showFooter = false, showHeader = true }: BaseLayoutProps) => {
-  const { hasLoggedIn } = useGetUser();
+  const { user } = useGetUser();
 
   return (
     <div className="drawer">
@@ -38,7 +38,7 @@ const BaseLayout = ({ showFooter = false, showHeader = true }: BaseLayoutProps) 
           </label>
 
           <ul className="menu mt-10 space-y-2 text-base-content">
-            {hasLoggedIn && <li><Link to="/wishlist">Wishlist</Link></li>}
+            {user?.role === "Shopper" && <li><Link to="/wishlist">Wishlist</Link></li>}
             <li><Link to="/listing">Shop list</Link></li>
           </ul>
         </div>

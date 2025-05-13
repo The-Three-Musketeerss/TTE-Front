@@ -10,6 +10,7 @@ import { getCart } from "@services/CartServices";
 
 const Header = () => {
   const { user, hasLoggedIn } = useGetUser();
+  const isShopper = user?.role === "Shopper";
   const canSeeEmployeePortal = user?.role === "Admin" || user?.role === "Employee";
 
   const [, , removeCookie] = useCookies(["session"]);
@@ -24,7 +25,7 @@ const Header = () => {
 
   useEffect(() => {
     const fetchCart = async () => {
-      if (!user?.token) return;
+      if (!user?.token || user?.role !== "Shopper") return;
       try {
         const cart = await getCart(user.token);
         const totalQuantity = cart.shoppingCart.reduce(
@@ -52,20 +53,22 @@ const Header = () => {
             <GiHamburgerMenu className="icon-size" />
           </label>
           <Link to="/" className="font-extrabold desktop-only">Tech Trend Emporium</Link>
-          {hasLoggedIn && <Link to="/wishlist" className="desktop-only">Wishlist</Link>}
+          {isShopper && <Link to="/wishlist" className="desktop-only">Wishlist</Link>}
           <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
 
         <div className="flex-row-center gap-3">
           {hasLoggedIn ? (
             <>
-              <div
-                className="flex-row-center gap-1 cursor-pointer"
-                onClick={() => navigate("/cart")}
-              >
-                <HiOutlineShoppingBag className="icon-size" />
-                {cartCount > 0 && <div>{cartCount}</div>}
-              </div>
+              {isShopper && (
+                <div
+                  className="flex-row-center gap-1 cursor-pointer"
+                  onClick={() => navigate("/cart")}
+                >
+                  <HiOutlineShoppingBag className="icon-size" />
+                  {cartCount > 0 && <div>{cartCount}</div>}
+                </div>
+              )}
 
               <div>{user?.username}</div>
 
@@ -77,9 +80,11 @@ const Header = () => {
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-lg w-40 mt-3"
                 >
-                  <li>
-                    <Link to="/orders" className="menu-hover">My orders</Link>
-                  </li>
+                  {isShopper && (
+                    <li>
+                      <Link to="/orders" className="menu-hover">My orders</Link>
+                    </li>
+                  )}
                   {canSeeEmployeePortal && (
                     <li>
                       <Link to="/employee" className="lg:hidden menu-hover">Employee portal</Link>
