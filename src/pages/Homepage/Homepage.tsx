@@ -44,21 +44,21 @@ const EmployeeHomePage = () => {
     if (hasLoggedIn && user?.role !== "Admin" && user?.role !== "Employee") {
       navigate("/", { replace: true });
     }
-
   }, [hasLoggedIn, user]);
 
   return (
-    <section className="bg-background flex flex-col items-center relative">
+    <section className="bg-background flex flex-col items-center relative px-4">
       <h1 className="text-primary font-semibold text-center text-4xl xl:text-5xl mb-16 xl:mb-28">
         Employee Portal
       </h1>
+
       {component ? (
         <>
           <p
-            className="text-primary font-bold hover:cursor-pointer absolute top-10 left-10"
+            className="text-primary font-bold hover:cursor-pointer mb-6 lg:absolute lg:top-10 lg:left-10"
             onClick={() => setComponent(null)}
           >
-            {"<Back"}
+            {"< Back"}
           </p>
           {React.createElement(component)}
         </>
