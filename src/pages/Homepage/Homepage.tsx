@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
 import CreateProduct from "@components/Homepage/CreateProduct/CreateProduct";
 import ReviewJobs from "@components/Homepage/ReviewJobs/ReviewJobs";
-import Users from "@pages/Users/Users";
+import CreateEmployee from "@components/Homepage/CreateEmployee/CreateEmployee";
+import Users from "@components/Homepage/Users/Users";
 import { useGetUser } from "@hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ const EmployeeHomePage = () => {
     { text: "List Products", component: null },
     { text: "List Categories", component: null },
     { text: "Review Jobs", component: ReviewJobs },
-    { text: "Create Employee", component: null },
+    { text: "Create Employee", component: CreateEmployee },
     { text: "View All Users", component: Users },
   ];
 

@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import BaseLayout from "@layouts/BaseLayout";
 import AuthLayout from "@layouts/AuthLayout";
+import { WishlistProvider } from "@contexts/WishlistContext";
 //Pages
 import EmployeeHomePage from "@pages/Homepage/Homepage";
 import Orders from "@pages/Orders/Orders";
@@ -21,6 +22,7 @@ ReactDOM.createRoot(root!).render(
   <CookiesProvider>
     <Toaster />
     <BrowserRouter>
+    <WishlistProvider>
       <Routes>
         <Route element={<BaseLayout />}>
           <Route path="/employee" element={<EmployeeHomePage />} />
@@ -41,6 +43,7 @@ ReactDOM.createRoot(root!).render(
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </WishlistProvider>
     </BrowserRouter>
   </CookiesProvider>
 );

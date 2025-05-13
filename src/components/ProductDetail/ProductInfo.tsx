@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "@components/shared/Button/Button";
 import QuantityInput from "@components/shared/QuantityInput/QuantityInput";
 import { useGetUser } from "@hooks/useGetUser";
@@ -5,8 +6,9 @@ import { addToCart } from "@services/CartServices";
 import { ProductProps } from "@utils/types";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { CiShare1 } from "react-icons/ci";
+import { useWishlist } from "@contexts/WishlistContext";
 
 const ProductInfo = (product: ProductProps) => {
   const [count, setCount] = useState(1);
@@ -29,6 +31,15 @@ const ProductInfo = (product: ProductProps) => {
         toast.error("Please log in to add items to your cart.");
       }
   };
+  const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const isWishlisted = product.id !== undefined ? isInWishlist(product.id) : false;
+
+  const handleWishlistToggle = () => {
+    if (product.id !== undefined) {
+      toggleWishlist(product.id);
+    }
+  };
 
   return (
     <article className="lg:max-w-2/3 flex flex-col space-y-5">
@@ -37,8 +48,14 @@ const ProductInfo = (product: ProductProps) => {
           {product.title}
         </h2>
         <div className="flex flex-row space-x-1">
-        <AiFillHeart className="text-3xl" />
-        <CiShare1 className="text-3xl" />
+          <button onClick={handleWishlistToggle} className="hover:text-error transition cursor-pointer">
+            {isWishlisted ? (
+              <AiFillHeart className="text-3xl text-error" />
+            ) : (
+              <AiOutlineHeart className="text-3xl" />
+            )}
+          </button>
+          <CiShare1 className="text-3xl" />
         </div>
       </span>
       <p className="mb-4 lg:mb-8">${product.price}</p>

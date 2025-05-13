@@ -23,7 +23,8 @@
       "@assets/*": ["assets/*"],
       "@services/*": ["services/*"],
       "@pages/*": ["pages/*"],
-      "@layouts/*": ["layouts/*"]
+      "@layouts/*": ["layouts/*"],
+      "@contexts/*": ["contexts/*"],
     },
 
     /* Linting */
