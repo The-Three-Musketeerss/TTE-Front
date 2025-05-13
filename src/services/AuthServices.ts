@@ -44,3 +44,37 @@ export const createEmployee = async (
 
   return data;
 };
+
+export const getSecurityQuestions = async () => {
+  const response = await fetch(`${rootUrl}/api/auth/security-questions`);
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || "Failed to fetch security questions");
+  }
+
+  return data.data;
+};
+
+export const resetPassword = async (payload: {
+  email: string;
+  securityQuestionId: number;
+  securityAnswer: string;
+  newPassword: string;
+}) => {
+  const response = await fetch(`${rootUrl}/api/auth/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || "Failed to reset password");
+  }
+
+  return data;
+};

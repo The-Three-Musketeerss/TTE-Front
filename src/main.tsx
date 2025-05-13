@@ -15,6 +15,7 @@ import Login from "@pages/Login/Login";
 import { CookiesProvider } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 import Cart from "@pages/Cart/Cart";
+import ForgotPassword from "@pages/ForgotPassword/ForgotPassword";
 
 const root = document.getElementById("root");
 
@@ -30,6 +31,7 @@ ReactDOM.createRoot(root!).render(
 
         <Route element={<AuthLayout/>}>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
 
         <Route element={<BaseLayout showFooter />}>

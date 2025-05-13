@@ -1,13 +1,13 @@
 import Logo from "@assets/Icons/TTELogo.png";
-import LoginForm from "@components/Auth/LoginForm/LoginForm";
+import ForgotPasswordForm from "@components/Auth/ForgotPassword/ForgotPasswordForm";
 
-const Login = () => {
+const ForgotPassword = () => {
   return (
     <section className="flex justify-around items-center">
-      <LoginForm />
+      <ForgotPasswordForm />
       <img src={Logo} alt="Logo" className="w-fit aspect-square hidden lg:flex" />
     </section>
   );
 };
 
-export default Login;
+export default ForgotPassword;
