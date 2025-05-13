@@ -32,7 +32,7 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [user]);
+  }, [user?.token]);
 
   return (
     <>

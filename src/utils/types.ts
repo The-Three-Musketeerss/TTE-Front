@@ -26,3 +26,10 @@ export type CartItemProps = {
   shippingCost: number;
   finalTotal: number;
 };
+
+export type JobItemProps = {
+  id: number;
+  id_item: number;
+  operation: string;
+  type: string;
+};
