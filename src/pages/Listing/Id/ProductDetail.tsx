@@ -25,14 +25,14 @@ const ProductDetail = () => {
   }, [id]);
 
   return (
-    <section className="text-primary flex flex-col items-center justify-center space-y-5 lg:flex-row lg:justify-between lg:space-x-32 lg:items-start lg:mx-auto lg:max-w-7xl px-4 py-8">
+    <section className="text-primary flex flex-col items-center justify-center space-y-5 lg:flex-row lg:justify-between lg:space-x-24 lg:items-start lg:mx-auto lg:max-w-7xl px-4 py-8">
       {loading && <ProductDetailSkeleton />}
       {product && (
         <>
           <img
             src={product.image}
             alt={product.title}
-            className="w-3xl object-contain bg-white aspect-square rounded-md shadow hover:scale-105 max-w-2xl"
+            className="max-w-sm lg:max-w-1/2 object-contain bg-white aspect-square rounded-md shadow hover:scale-105"
           />
           <ProductInfo {...product} />
         </>

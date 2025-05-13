@@ -3,6 +3,9 @@ import BaseInput from "@components/shared/BaseInput/BaseInput";
 import { useForm } from "react-hook-form";
 import { CategorySchema } from "./CreateCategory.resolver";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useGetUser } from "@hooks/useGetUser";
+import { createCategory } from "@services/CategoryServices";
+import toast from "react-hot-toast";
 
 const CreateCategory = () => {
   const {
@@ -13,8 +16,18 @@ const CreateCategory = () => {
     resolver: yupResolver(CategorySchema),
   });
 
+  const { user } = useGetUser();
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    toast.promise(createCategory(data.name, user?.token), {
+      loading: "Creating category...",
+      success: (response) => {
+        return response.message;
+      },
+      error: (error) => {
+        return `Error creating category: ${error.message}`;
+      },
+    });
   };
 
   return (

@@ -45,7 +45,7 @@ const ProductInfo = (product: ProductProps) => {
   return (
     <article className="lg:max-w-2/3 flex flex-col space-y-5">
       <span className="flex items-start justify-between">
-        <h2 className="font-semibold text-3xl lg:text-4xl max-w-2/3">
+        <h2 className="font-semibold text-2xl lg:text-4xl max-w-2/3">
           {product.title}
         </h2>
         <div className="flex flex-row space-x-1">
@@ -61,7 +61,7 @@ const ProductInfo = (product: ProductProps) => {
       </span>
       <p className="mb-4 lg:mb-8">${product.price}</p>
       <p className="lg:w-80 overflow-clip text-left">{product.description}</p>
-      <div className="flex flex-row space-x-4">
+      <div className="flex flex-col lg:flex-row lg:space-x-4">
         <Button
           text={`Add to Cart - $${(product.price * count).toFixed(2)}`}
           onClick={handleAddToCart}

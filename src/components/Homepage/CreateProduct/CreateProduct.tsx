@@ -3,6 +3,10 @@ import BaseInput from "@components/shared/BaseInput/BaseInput";
 import { useForm } from "react-hook-form";
 import { ProductResolver } from "./CreateProduct.resolver";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ProductProps } from "@utils/types";
+import toast from "react-hot-toast";
+import { createProduct } from "@services/ProductServices";
+import { useGetUser } from "@hooks/useGetUser";
 
 const CreateProduct = () => {
   const {
@@ -13,13 +17,35 @@ const CreateProduct = () => {
     resolver: yupResolver(ProductResolver),
   });
 
+  const {user} = useGetUser();
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    const Product: ProductProps = {
+      title: data.title,
+      price: parseFloat(data.price),
+      description: data.description,
+      category: data.category,
+      image: data.image,
+      inventory: {
+        total: parseInt(data.total),
+        available: parseInt(data.available),
+      },
+    };
+
+    toast.promise(createProduct(Product, user?.token), {
+      loading: "Creating product...",
+      success: (response) => {
+        return response.message;
+      },
+      error: (error) => {
+        return `Error creating product: ${error.message}`;
+      },
+    });
   };
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md mx-auto">
-      <h3 className="text-2xl mb-7">Create Category</h3>
+      <h3 className="text-2xl mb-7">Create Product</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           register={register("title")}
