@@ -19,7 +19,7 @@ export const WishlistProvider = ({ children }: { children: React.ReactNode }) =>
 
   useEffect(() => {
     const fetchWishlist = async () => {
-      if (!user?.token) return;
+      if (!user?.token || user?.role !== "Shopper") return;
 
       try {
         const data = await getWishlist(user.token);
@@ -38,7 +38,10 @@ export const WishlistProvider = ({ children }: { children: React.ReactNode }) =>
   const isInWishlist = (productId: number) => wishlist.includes(productId);
 
   const toggleWishlist = async (productId: number) => {
-    if (!user?.token) return;
+    if (!user?.token || user?.role !== "Shopper") {
+      toast.error("Only shoppers can add to wishlist");
+      return;
+    }
 
     try {
       if (wishlist.includes(productId)) {
