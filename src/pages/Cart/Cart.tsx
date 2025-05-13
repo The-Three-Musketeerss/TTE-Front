@@ -59,9 +59,11 @@ const Cart = () => {
         <Shipping />
         </div>
         <OrderSummary
-          subtotal={cart?.totalAfterDiscount!}
+          subtotal={cart?.totalBeforeDiscount!}
+          subAfterDiscount={cart?.totalAfterDiscount!}
           shipping={cart?.shippingCost!}
           total={cart?.finalTotal!}
+          setCart={setCart}
         />
       </section>
     );

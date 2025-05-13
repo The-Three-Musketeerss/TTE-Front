@@ -39,7 +39,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     fetchWishlist();
-  }, [user]);
+  }, [user?.token]);
 
   const refreshCart = async () => {
     if (!user?.token || user?.role !== "Shopper") return;
@@ -57,7 +57,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     refreshCart();
-  }, [user]);
+  }, [user?.token]);
 
   const isInWishlist = (productId: number) => wishlist.includes(productId);
 
