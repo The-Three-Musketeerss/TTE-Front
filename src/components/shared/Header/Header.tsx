@@ -32,7 +32,12 @@ const Header = () => {
           <label htmlFor="my-drawer" className="cursor-pointer lg:hidden">
             <GiHamburgerMenu className="icon-size" />
           </label>
-          <Link to="/" className="font-extrabold desktop-only">Tech Trend Emporium</Link>
+
+          <Link to="/" className="font-extrabold">
+            <span className="block lg:hidden">TTE</span>
+            <span className="hidden lg:block">Tech Trend Emporium</span>
+          </Link>
+
           {isShopper && <Link to="/wishlist" className="desktop-only">Wishlist</Link>}
           <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
