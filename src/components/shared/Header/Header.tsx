@@ -30,10 +30,9 @@ const Header = ({ userRole }: HeaderProps) => {
         </div>
 
         <div className="flex-row-center gap-3">
-          <div className="flex-row-center gap-1">
+          <Link to={"/cart"} className="flex-row-center gap-1">
             <HiOutlineShoppingBag className="icon-size" />
-            <div>3</div>
-          </div>
+          </Link>
 
           <div>Name</div>
 
