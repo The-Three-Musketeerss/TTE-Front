@@ -1,6 +1,6 @@
 const TableSkeleton = () => {
   const rows = Array(5).fill(0);
-  const cols = Array(7).fill(0); // Assuming 7 columns like in your headers
+  const cols = Array(7).fill(0);
 
   return (
     <div className="bg-white rounded-lg shadow overflow-x-auto w-full animate-pulse">
