@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useWishlist } from "@contexts/WishlistContext";
+import { useShop } from "@contexts/ShopContext";
 import { ProductProps } from "@utils/types";
 
 const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
   const navigate = useNavigate();
-  const { isInWishlist, toggleWishlist } = useWishlist();
+  const { isInWishlist, toggleWishlist } = useShop();
 
   const handleCardClick = () => {
     navigate(`/listing/${id}`);

@@ -3,6 +3,7 @@ import { getProductById } from "@services/ProductServices";
 import { ProductProps } from "@utils/types";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useShop } from "@contexts/ShopContext";
 
 type Props = {
   token: string;
@@ -11,13 +12,9 @@ type Props = {
   setCart: any;
 };
 
-const CartCard = ({
-  id,
-  token,
-  setCart,
-  quantity,
-}: Props) => {
+const CartCard = ({ id, token, setCart, quantity }: Props) => {
   const [product, setProduct] = useState<ProductProps>();
+  const { refreshCart } = useShop();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -37,12 +34,11 @@ const CartCard = ({
       success: (data) => {
         getCart(token).then((updatedCart) => {
           setCart(updatedCart.data);
+          refreshCart();
         });
         return <span>{data.message}</span>;
       },
-      error: (error) => {
-        return <span>{error.message}</span>;
-      },
+      error: (error) => <span>{error.message}</span>,
     });
   };
 

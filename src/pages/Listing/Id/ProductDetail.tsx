@@ -32,7 +32,7 @@ const ProductDetail = () => {
           <img
             src={product.image}
             alt={product.title}
-            className="w-3xl object-contain bg-white aspect-square rounded-md shadow hover:scale-105"
+            className="w-3xl object-contain bg-white aspect-square rounded-md shadow hover:scale-105 max-w-2xl"
           />
           <ProductInfo {...product} />
         </>

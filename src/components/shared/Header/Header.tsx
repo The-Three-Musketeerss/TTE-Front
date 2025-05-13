@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -6,40 +5,21 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useGetUser } from "@hooks/useGetUser";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
-import { getCart } from "@services/CartServices";
+import { useShop } from "@contexts/ShopContext";
 
 const Header = () => {
   const { user, hasLoggedIn } = useGetUser();
   const isShopper = user?.role === "Shopper";
   const canSeeEmployeePortal = user?.role === "Admin" || user?.role === "Employee";
+  const { cartCount } = useShop();
 
   const [, , removeCookie] = useCookies(["session"]);
   const navigate = useNavigate();
-
-  const [cartCount, setCartCount] = useState<number>(0);
 
   const handleLogout = () => {
     removeCookie("session", { path: "/" });
     toast.success("You have logged out");
   };
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      if (!user?.token || user?.role !== "Shopper") return;
-      try {
-        const cart = await getCart(user.token);
-        const totalQuantity = cart.shoppingCart.reduce(
-          (sum: number, item: { quantity: number }) => sum + item.quantity,
-          0
-        );
-        setCartCount(totalQuantity);
-      } catch (err) {
-        console.error("Error fetching cart:", err);
-      }
-    };
-
-    fetchCart();
-  }, [user]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -62,11 +42,15 @@ const Header = () => {
             <>
               {isShopper && (
                 <div
-                  className="flex-row-center gap-1 cursor-pointer"
+                  className="flex-row-center gap-1 cursor-pointer relative"
                   onClick={() => navigate("/cart")}
                 >
                   <HiOutlineShoppingBag className="icon-size" />
-                  {cartCount > 0 && <div>{cartCount}</div>}
+                  {cartCount > 0 && (
+                    <span className="absolute -top-4.5 -right-3 rounded-full bg-red-500 text-white text-xs px-2 py-0.5">
+                      {cartCount}
+                    </span>
+                  )}
                 </div>
               )}
 
