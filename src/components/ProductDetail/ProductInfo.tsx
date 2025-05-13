@@ -7,30 +7,32 @@ import { ProductProps } from "@utils/types";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { CiShare1 } from "react-icons/ci";
-import { useWishlist } from "@contexts/WishlistContext";
+import { useShop } from "@contexts/ShopContext";
 
 const ProductInfo = (product: ProductProps) => {
   const [count, setCount] = useState(1);
-  const {hasLoggedIn, user} = useGetUser();
+  const { hasLoggedIn, user } = useGetUser();
+  const { isInWishlist, toggleWishlist, refreshCart } = useShop();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (hasLoggedIn && user?.role === "Shopper") {
-      const postCart = async () => {
-        toast.promise(
+      try {
+        await toast.promise(
           addToCart(user?.token, product.id!, count),
           {
             loading: "Adding to cart...",
             success: "Added to cart",
             error: (error) => error.message,
-          });
-      };
-
-      postCart();}
-      else {
-        toast.error("Please log in to add items to your cart.");
+          }
+        );
+        await refreshCart();
+      } catch (err) {
+        console.error("Error adding to cart", err);
       }
+    } else {
+      toast.error("Please log in to add items to your cart.");
+    }
   };
-  const { isInWishlist, toggleWishlist } = useWishlist();
 
   const isWishlisted = product.id !== undefined ? isInWishlist(product.id) : false;
 

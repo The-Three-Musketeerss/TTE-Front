@@ -1,25 +1,31 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getWishlist, addToWishlist, removeFromWishlist } from "@services/WishlistServices";
+import { getCart } from "@services/CartServices";
 import { useGetUser } from "@hooks/useGetUser";
 
-type WishlistContextType = {
+type ShopContextType = {
   wishlist: number[];
   isInWishlist: (productId: number) => boolean;
   toggleWishlist: (productId: number) => Promise<void>;
   loading: boolean;
+
+  cartCount: number;
+  refreshCart: () => Promise<void>;
 };
 
-const WishlistContext = createContext<WishlistContextType | null>(null);
+const ShopContext = createContext<ShopContextType | null>(null);
 
-export const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
+export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useGetUser();
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [cartCount, setCartCount] = useState<number>(0);
+
   useEffect(() => {
     const fetchWishlist = async () => {
-      if (!user?.token) return;
+      if (!user?.token || user?.role !== "Shopper") return;
 
       try {
         const data = await getWishlist(user.token);
@@ -35,10 +41,31 @@ export const WishlistProvider = ({ children }: { children: React.ReactNode }) =>
     fetchWishlist();
   }, [user]);
 
+  const refreshCart = async () => {
+    if (!user?.token || user?.role !== "Shopper") return;
+    try {
+      const cart = await getCart(user.token);
+      const totalQuantity = cart.data.shoppingCart.reduce(
+        (sum: number, item: { quantity: number }) => sum + item.quantity,
+        0
+      );
+      setCartCount(totalQuantity);
+    } catch (err) {
+      console.error("Failed to fetch cart", err);
+    }
+  };
+
+  useEffect(() => {
+    refreshCart();
+  }, [user]);
+
   const isInWishlist = (productId: number) => wishlist.includes(productId);
 
   const toggleWishlist = async (productId: number) => {
-    if (!user?.token) return;
+    if (!user?.token || user?.role !== "Shopper") {
+      toast.error("Only shoppers can add to wishlist");
+      return;
+    }
 
     try {
       if (wishlist.includes(productId)) {
@@ -56,16 +83,25 @@ export const WishlistProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, isInWishlist, toggleWishlist, loading }}>
+    <ShopContext.Provider
+      value={{
+        wishlist,
+        isInWishlist,
+        toggleWishlist,
+        loading,
+        cartCount,
+        refreshCart,
+      }}
+    >
       {children}
-    </WishlistContext.Provider>
+    </ShopContext.Provider>
   );
 };
 
-export const useWishlist = () => {
-  const context = useContext(WishlistContext);
+export const useShop = () => {
+  const context = useContext(ShopContext);
   if (!context) {
-    throw new Error("useWishlist must be used within a WishlistProvider");
+    throw new Error("useShop must be used within a ShopProvider");
   }
   return context;
 };

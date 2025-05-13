@@ -5,20 +5,21 @@ import CreateCategory from "@components/Homepage/CreateCategory/CreateCategory";
 import CreateProduct from "@components/Homepage/CreateProduct/CreateProduct";
 import ReviewJobs from "@components/Homepage/ReviewJobs/ReviewJobs";
 import CreateEmployee from "@components/Homepage/CreateEmployee/CreateEmployee";
+import CategoryList from "@components/Homepage/CategoryList/CategoryList";
 import Users from "@components/Homepage/Users/Users";
 import { useGetUser } from "@hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
-  const {hasLoggedIn, user} = useGetUser();
+  const { hasLoggedIn, user } = useGetUser();
   const navigate = useNavigate();
 
   const buttonList = [
     { text: "Create Product", component: CreateProduct },
     { text: "Create Category", component: CreateCategory },
     { text: "List Products", component: null },
-    { text: "List Categories", component: null },
+    { text: "List Categories", component: CategoryList },
     { text: "Review Jobs", component: ReviewJobs },
     { text: "Create Employee", component: CreateEmployee },
     { text: "View All Users", component: Users },
@@ -40,7 +41,7 @@ const EmployeeHomePage = () => {
       navigate("/login", { replace: true });
     }
 
-    if (hasLoggedIn && user?.role !== "Admin") {
+    if (hasLoggedIn && user?.role !== "Admin" && user?.role !== "Employee") {
       navigate("/", { replace: true });
     }
 
