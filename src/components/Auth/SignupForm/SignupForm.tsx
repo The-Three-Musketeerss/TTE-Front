@@ -100,7 +100,7 @@ const SignupForm = () => {
           placeholder="Confirm your password"
           type="password"
         />
-        <Button text="Login" type="submit" />
+        <Button text="Sign Up" type="submit" />
       </form>
       <p className="font-light text-gray-500 text-xs lg:text-base text-center">
         Already have an account?

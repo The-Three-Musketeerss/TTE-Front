@@ -11,7 +11,7 @@ type SelectProps = {
 const Select = ({ register, error, label, data, placeholder }: SelectProps) => {
   return (
     <fieldset className="mb-4 fieldset">
-      <label className="text-primary text-lg">
+      <label className="text-primary text-base lg:text-lg">
         {label}
       </label>
       <select
