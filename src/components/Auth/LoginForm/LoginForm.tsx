@@ -70,7 +70,7 @@ const LoginForm = () => {
       </form>
       <p className="font-light text-gray-500 text-xs lg:text-base text-center">
         Don't have an Account?
-        <Link to="/register" className="font-semibold text-primary ml-1">
+        <Link to="/signup" className="font-semibold text-primary ml-1">
           Register
         </Link>
       </p>

@@ -108,7 +108,7 @@ const ForgotPasswordForm = () => {
 
         <p className="font-light text-gray-500 text-xs lg:text-base text-center mt-6">
           Don't have an account?
-          <Link to="/register" className="font-semibold text-primary ml-1">
+          <Link to="/signup" className="font-semibold text-primary ml-1">
             Register
           </Link>
         </p>
