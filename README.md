@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# Tech Trend Emporium
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tech Trend Emporium is a modern ecommerce designed to showcase and sell products in an interactive and responsive interface. Built with React, Vite and TypeScript, styled with Tailwind CSS.
 
-Currently, two official plugins are available:
+## Development Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run the project locally:
 
-## Expanding the ESLint configuration
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+3. Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> ℹ️ The application runs on port `5173` by default (Vite's default port).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Dependencies Overview
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+| Library                       | Version    | Purpose                                                                |
+|------------------------------|------------|------------------------------------------------------------------------|
+| react                        | ^19.0.0    | Core library for building user interfaces                             |
+| react-router-dom             | ^7.5.3     | Declarative routing for React apps                                    |
+| react-hook-form              | ^7.56.2    | Hooks for form state and validation                                    |
+| yup                          | ^1.6.1     | Schema-based form validation                                           |
+| react-cookie                 | ^8.0.1     | Handling cookies in React                                              |
+| react-hot-toast              | ^2.5.2     | Notifications for React                                                |
+| react-icons                  | ^5.5.0     | Popular icon packs as React components                                |
+| tailwindcss                  | ^4.1.5     | Utility-first CSS framework                                            |
+| daisyui                      | ^5.0.35    | Tailwind CSS component library                                         |
+| vite                         | ^6.3.1     | Next-generation frontend tooling                                       |
+| typescript                   | ~5.7.2     | Static type checking for JavaScript                                    |
