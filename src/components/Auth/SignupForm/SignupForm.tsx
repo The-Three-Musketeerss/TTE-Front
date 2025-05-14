@@ -3,11 +3,11 @@ import { SignupResolver } from "./SignupForm.resolver";
 import { useForm } from "react-hook-form";
 import BaseInput from "@components/shared/BaseInput/BaseInput";
 import Button from "@components/shared/Button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "@components/shared/Select/Select";
 import { useEffect, useState } from "react";
 import { securityQuestionProps } from "@utils/types";
-import { getSecurityQuestions } from "@services/AuthServices";
+import { getSecurityQuestions, Signup } from "@services/AuthServices";
 import toast from "react-hot-toast";
 
 const SignupForm = () => {
@@ -20,7 +20,7 @@ const SignupForm = () => {
   });
 
   const [questions, setQuestions] = useState<securityQuestionProps[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -34,7 +34,19 @@ const SignupForm = () => {
   }, []);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    toast.promise(
+        Signup(data),
+        {
+          loading: "Creating account...",
+          success: (response) => {
+            navigate("/login", {replace: true});
+            return response.message + " Please login to continue.";
+          },
+          error: (error) => {
+            return error.message;
+          },
+        }
+    )
   };
   return (
     <div className="bg-white flex flex-col rounded-lg shadow-lg p-6 lg:p-8 lg:w-1/2">
