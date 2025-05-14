@@ -9,6 +9,7 @@ import CategoryList from "@components/Homepage/CategoryList/CategoryList";
 import Users from "@components/Homepage/Users/Users";
 import { useGetUser } from "@hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
+import ProductList from "@components/Homepage/ProductList/ProductList";
 
 const EmployeeHomePage = () => {
   const [component, setComponent] = useState<React.ComponentType | null>(null);
@@ -18,7 +19,7 @@ const EmployeeHomePage = () => {
   const buttonList = [
     { text: "Create Product", component: CreateProduct },
     { text: "Create Category", component: CreateCategory },
-    { text: "List Products", component: null },
+    { text: "List Products", component: ProductList },
     { text: "List Categories", component: CategoryList },
     { text: "Review Jobs", component: ReviewJobs },
     { text: "Create Employee", component: CreateEmployee },
