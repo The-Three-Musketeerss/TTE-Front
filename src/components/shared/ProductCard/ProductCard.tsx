@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useShop } from "@contexts/ShopContext";
 import { ProductProps } from "@utils/types";
+import { memo } from "react";
 
-const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
+type ProductCardProps = ProductProps & {
+  isFavorite: boolean;
+  onToggleFavorite: (id: number) => void;
+};
+
+const ProductCard = ({ title, price, image, id = 0, isFavorite, onToggleFavorite }: ProductCardProps) => {
   const navigate = useNavigate();
-  const { isInWishlist, toggleWishlist } = useShop();
 
   const handleCardClick = () => {
     navigate(`/listing/${id}`);
@@ -13,7 +17,7 @@ const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
 
   const handleToggleWishlist = (e: React.MouseEvent) => {
     e.stopPropagation();
-    toggleWishlist(id);
+    onToggleFavorite(id);
   };
 
   return (
@@ -33,7 +37,7 @@ const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
           className="text-black hover:text-error transition-colors"
           onClick={handleToggleWishlist}
         >
-          {isInWishlist(id) ? (
+          {isFavorite ? (
             <AiFillHeart className="icon-size cursor-pointer" />
           ) : (
             <AiOutlineHeart className="icon-size cursor-pointer" />
@@ -44,4 +48,14 @@ const ProductCard = ({ title, price, image, id = 0 }: ProductProps) => {
   );
 };
 
-export default ProductCard;
+function areEqual(prevProps: ProductCardProps, nextProps: ProductCardProps) {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.isFavorite === nextProps.isFavorite &&
+    prevProps.title === nextProps.title &&
+    prevProps.price === nextProps.price &&
+    prevProps.image === nextProps.image
+  );
+}
+
+export default memo(ProductCard, areEqual);

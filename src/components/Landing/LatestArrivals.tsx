@@ -5,10 +5,12 @@ import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import Button from "@components/shared/Button/Button";
 import { getLatestArrivals } from "@services/ProductServices";
 import { ProductProps } from "@utils/types";
+import { useShop } from "@contexts/ShopContext";
 
 const LatestArrivals = () => {
   const [latestArrivals, setLatestArrivals] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const { isInWishlist, toggleWishlist } = useShop();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +35,12 @@ const LatestArrivals = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-6xl px-4">
         {loading
           ? ([1, 2, 3] as number[]).map((i) => <Skeleton key={i} />)
-          : latestArrivals.map((item) => <ProductCard key={item.id} {...item} />)}
+          : latestArrivals.map((item) => <ProductCard
+            key={item.id}
+            {...item}
+            isFavorite={isInWishlist(item.id)}
+            onToggleFavorite={toggleWishlist}
+          />)}
       </div>
     </section>
   );

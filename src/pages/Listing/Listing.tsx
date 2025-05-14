@@ -7,6 +7,7 @@ import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import { getCategories } from "@services/CategoryServices";
 import { getProducts } from "@services/ProductServices";
 import { CategoryProps, ProductProps } from "@utils/types";
+import { useShop } from "@contexts/ShopContext";
 
 const Listing = () => {
   const [searchParams] = useSearchParams();
@@ -23,6 +24,8 @@ const Listing = () => {
 
   const loading = products.length === 0;
   const count = products.length;
+
+  const { isInWishlist, toggleWishlist } = useShop();
 
   useEffect(() => {
     const categoryFromUrl = searchParams.get("category") || "";
@@ -131,6 +134,8 @@ const Listing = () => {
                     title={product.title}
                     price={product.price}
                     image={product.image}
+                    isFavorite={isInWishlist(product.id)}
+                    onToggleFavorite={toggleWishlist}
                   />
                 ))}
           </div>

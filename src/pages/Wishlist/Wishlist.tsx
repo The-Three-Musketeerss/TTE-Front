@@ -6,10 +6,12 @@ import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import Button from "@components/shared/Button/Button";
 import { ProductProps } from "@utils/types";
+import { useShop } from "@contexts/ShopContext";
 
 const Wishlist = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const { isInWishlist, toggleWishlist } = useShop();
   const navigate = useNavigate();
   const { user } = useGetUser();
 
@@ -52,6 +54,8 @@ const Wishlist = () => {
               price={item.price}
               image={item.image}
               id={item.id}
+              isFavorite={true}
+              onToggleFavorite={toggleWishlist}
             />
           ))}
         </div>
