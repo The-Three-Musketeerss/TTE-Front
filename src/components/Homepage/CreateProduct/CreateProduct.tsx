@@ -12,6 +12,7 @@ const CreateProduct = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(ProductResolver),
@@ -35,6 +36,7 @@ const CreateProduct = () => {
     toast.promise(createProduct(Product, user?.token), {
       loading: "Creating product...",
       success: (response) => {
+        reset();
         return response.message;
       },
       error: (error) => {
