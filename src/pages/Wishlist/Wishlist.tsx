@@ -27,7 +27,7 @@ const Wishlist = () => {
     };
 
     fetchWishlist();
-  }, [user]);
+  }, [user?.token]);
 
   return (
     <div className="flex flex-col items-center min-h-screen px-4">
