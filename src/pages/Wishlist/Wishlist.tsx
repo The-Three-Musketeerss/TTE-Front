@@ -11,7 +11,7 @@ import { useShop } from "@contexts/ShopContext";
 const Wishlist = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const { isInWishlist, toggleWishlist } = useShop();
+  const { toggleWishlist } = useShop();
   const navigate = useNavigate();
   const { user } = useGetUser();
 
