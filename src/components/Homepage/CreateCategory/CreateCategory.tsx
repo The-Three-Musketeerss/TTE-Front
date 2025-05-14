@@ -11,6 +11,7 @@ const CreateCategory = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(CategorySchema),
@@ -22,6 +23,7 @@ const CreateCategory = () => {
     toast.promise(createCategory(data.name, user?.token), {
       loading: "Creating category...",
       success: (response) => {
+        reset();
         return response.message;
       },
       error: (error) => {
