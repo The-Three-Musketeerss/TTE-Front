@@ -21,7 +21,7 @@ const BaseInput = ({
 }: BaseInputProps) => {
   return (
     <fieldset className="w-full mb-4 relative">
-      {label && <legend className="text-primary text-lg">{label}</legend>}
+      {label && <legend className="text-primary text-base lg:text-lg">{label}</legend>}
       <div className={`${button ? "join w-full" : ""}`}>
       <input
         {...register}

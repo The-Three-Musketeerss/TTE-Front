@@ -33,3 +33,8 @@ export type JobItemProps = {
   operation: string;
   type: string;
 };
+
+export type securityQuestionProps = {
+  id: number;
+  question: string;
+};
