@@ -9,6 +9,8 @@ import { ForgotPasswordResolver } from "./ForgotPassword.resolver";
 
 import BaseInput from "@components/shared/BaseInput/BaseInput";
 import Button from "@components/shared/Button/Button";
+import Select from "@components/shared/Select/Select";
+import { securityQuestionProps } from "@utils/types";
 
 const ForgotPasswordForm = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const ForgotPasswordForm = () => {
     resolver: yupResolver(ForgotPasswordResolver),
   });
 
-  const [questions, setQuestions] = useState<{ id: number; question: string }[]>([]);
+  const [questions, setQuestions] = useState<securityQuestionProps[]>([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -61,25 +63,12 @@ const ForgotPasswordForm = () => {
           placeholder="Enter your email"
         />
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Security Question</label>
-          <select
-            {...register("securityQuestionId")}
-            className="select select-bordered w-full"
-          >
-            <option value="">Select a question</option>
-            {questions.map((q) => (
-              <option key={q.id} value={q.id}>
-                {q.question}
-              </option>
-            ))}
-          </select>
-          {errors.securityQuestionId && (
-            <p className="text-error text-sm mt-1">
-              {errors.securityQuestionId.message as string}
-            </p>
-          )}
-        </div>
+        <Select
+          data={questions.map(({ id, question }) => ({ id, label: question }))}
+          label="Security Question"
+          placeholder="Select a question"
+          register={register("securityQuestionId")}
+        />
 
         <BaseInput
           register={register("securityAnswer")}

@@ -1,5 +1,5 @@
 import Logo from "@assets/Icons/TTELogo.png";
-import SignupForm from "@components/Auth/SignupForm/SIgnupForm";
+import SignupForm from "@components/Auth/SignupForm/SignupForm";
 
 const Signup = () => {
   return (
