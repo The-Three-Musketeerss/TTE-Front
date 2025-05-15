@@ -18,7 +18,7 @@ const Orders = () => {
 
   const { user } = useGetUser();
   const [orders, setOrders] = useState<any[]>([]);
-  const loading = orders.length === 0;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -40,13 +40,14 @@ const Orders = () => {
           status: order.status,
         }));
         setOrders(formatted);
+        setLoading(false);
       } catch (err) {
         console.error("Failed to fetch orders", err);
       }
     };
 
     fetchOrders();
-  }, [user]);
+  }, [user?.token]);
 
   return (
     <div className="min-h-screen">

@@ -52,7 +52,7 @@ export type orderProps = {
   address: string;
   paymentStatus: string;
   createdAt: string;
-  orderItems: {
+  orderItems?: {
     productId: number;
     quantity: number;
     price: number;
