@@ -12,6 +12,7 @@ type ShopContextType = {
 
   cartCount: number;
   refreshCart: () => Promise<void>;
+  resetShop: () => void;
 };
 
 const ShopContext = createContext<ShopContextType | null>(null);
@@ -20,29 +21,25 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useGetUser();
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [cartCount, setCartCount] = useState<number>(0);
 
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      if (!user?.token || user?.role !== "Shopper") return;
+  const fetchWishlist = async () => {
+    if (!user?.token || user?.role !== "Shopper") return;
 
-      try {
-        const data = await getWishlist(user.token);
-        const ids = data.map((product) => product.id);
-        setWishlist(ids);
-      } catch (err) {
-        console.error("Failed to fetch wishlist", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWishlist();
-  }, [user?.token]);
+    try {
+      const data = await getWishlist(user.token);
+      const ids = data.map((product) => product.id);
+      setWishlist(ids);
+    } catch (err) {
+      console.error("Failed to fetch wishlist", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const refreshCart = async () => {
     if (!user?.token || user?.role !== "Shopper") return;
+
     try {
       const cart = await getCart(user.token);
       const totalQuantity = cart.data.shoppingCart.reduce(
@@ -55,9 +52,19 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const resetShop = () => {
+    setWishlist([]);
+    setCartCount(0);
+  };
+
   useEffect(() => {
-    refreshCart();
-  }, [user?.token]);
+    if (user?.token && user?.role === "Shopper") {
+      fetchWishlist();
+      refreshCart();
+    } else {
+      resetShop();
+    }
+  }, [user?.token, user?.role]);
 
   const isInWishlist = (productId: number) => wishlist.includes(productId);
 
@@ -91,6 +98,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         cartCount,
         refreshCart,
+        resetShop,
       }}
     >
       {children}

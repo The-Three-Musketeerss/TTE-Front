@@ -6,10 +6,12 @@ import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import Button from "@components/shared/Button/Button";
 import { ProductProps } from "@utils/types";
+import { useShop } from "@contexts/ShopContext";
 
 const Wishlist = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const { toggleWishlist } = useShop();
   const navigate = useNavigate();
   const { user } = useGetUser();
 
@@ -27,7 +29,7 @@ const Wishlist = () => {
     };
 
     fetchWishlist();
-  }, [user]);
+  }, [user?.token]);
 
   return (
     <div className="flex flex-col items-center min-h-screen px-4">
@@ -52,6 +54,8 @@ const Wishlist = () => {
               price={item.price}
               image={item.image}
               id={item.id}
+              isFavorite={true}
+              onToggleFavorite={toggleWishlist}
             />
           ))}
         </div>

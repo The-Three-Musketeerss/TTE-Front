@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -13,12 +14,44 @@ const Header = () => {
   const canSeeEmployeePortal = user?.role === "Admin" || user?.role === "Employee";
   const { cartCount } = useShop();
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [, , removeCookie] = useCookies(["session"]);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     removeCookie("session", { path: "/" });
     toast.success("You have logged out");
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (location.pathname === "/listing") {
+      const valueFromUrl = searchParams.get("search") || "";
+      setSearchQuery(valueFromUrl);
+    }
+  }, [location.pathname, searchParams]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (location.pathname === "/listing") {
+        const newParams = new URLSearchParams(searchParams);
+        if (searchQuery.trim()) {
+          newParams.set("search", searchQuery.trim());
+        } else {
+          newParams.delete("search");
+        }
+        setSearchParams(newParams);
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [searchQuery]);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/listing?search=${encodeURIComponent(searchQuery.trim())}`);
   };
 
   return (
@@ -42,14 +75,21 @@ const Header = () => {
           <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
 
+        <form onSubmit={handleSearch} className="flex items-center gap-2">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search products..."
+            className="input input-bordered w-36 lg:w-64"
+          />
+        </form>
+
         <div className="flex-row-center gap-3">
           {hasLoggedIn ? (
             <>
               {isShopper && (
-                <div
-                  className="flex-row-center gap-1 cursor-pointer relative"
-                  onClick={() => navigate("/cart")}
-                >
+                <div className="flex-row-center gap-1 cursor-pointer relative" onClick={() => navigate("/cart")}>
                   <HiOutlineShoppingBag className="icon-size" />
                   {cartCount > 0 && (
                     <span className="absolute -top-4.5 -right-3 rounded-full bg-red-500 text-white text-xs px-2 py-0.5">
@@ -65,40 +105,21 @@ const Header = () => {
                 <label tabIndex={0} className="cursor-pointer">
                   <FaRegUserCircle className="icon-size" />
                 </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-lg w-40 mt-3"
-                >
-                  {isShopper && (
-                    <li>
-                      <Link to="/orders" className="menu-hover">My orders</Link>
-                    </li>
-                  )}
-                  {canSeeEmployeePortal && (
-                    <li>
-                      <Link to="/employee" className="lg:hidden menu-hover">Employee portal</Link>
-                    </li>
-                  )}
-                  <li>
-                    <button onClick={handleLogout} className="menu-hover text-left w-full">Logout</button>
-                  </li>
+                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-lg w-40 mt-3">
+                  {isShopper && <li><Link to="/orders" className="menu-hover">My orders</Link></li>}
+                  {canSeeEmployeePortal && <li><Link to="/employee" className="lg:hidden menu-hover">Employee portal</Link></li>}
+                  <li><button onClick={handleLogout} className="menu-hover text-left w-full">Logout</button></li>
                 </ul>
               </div>
 
               {canSeeEmployeePortal && (
-                <Link
-                  to="/employee"
-                  className="hidden lg:inline-block ml-4 bg-primary text-white px-3 py-1 rounded-md font-medium"
-                >
+                <Link to="/employee" className="hidden lg:inline-block ml-4 bg-primary text-white px-3 py-1 rounded-md font-medium">
                   Employee portal
                 </Link>
               )}
             </>
           ) : (
-            <Link
-              to="/login"
-              className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-secondary transition"
-            >
+            <Link to="/login" className="bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-secondary transition">
               Login
             </Link>
           )}
