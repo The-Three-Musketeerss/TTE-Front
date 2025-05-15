@@ -1,3 +1,4 @@
+import OrderCard from "@components/OrderDetail/OrderCard/OrderCard";
 import { useGetUser } from "@hooks/useGetUser";
 import { getOrderById } from "@services/OrderServices";
 import { orderProps } from "@utils/types";
@@ -20,7 +21,18 @@ const OrderDetail = () => {
     }
   }, [user?.token, id]);
 
-  return <section></section>;
+  return <section>
+    <div className="flex flex-col gap-4 mt-4 overflow-y-scroll h-80">
+          {order?.orderItems.map((item) => (
+            <OrderCard
+              key={item.productId}
+              id={item.productId}
+              quantity={item.quantity}
+              token={user?.token}
+            />
+          ))}
+        </div>
+  </section>;
 };
 
 export default OrderDetail;

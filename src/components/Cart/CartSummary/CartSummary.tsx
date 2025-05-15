@@ -1,6 +1,6 @@
 import BaseInput from "@components/shared/BaseInput/BaseInput";
 import Button from "@components/shared/Button/Button";
-import { couponResolver } from "./OrderSummary.resolver";
+import { couponResolver } from "./CartSummary.resolver";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -16,7 +16,7 @@ type OrderSummaryProps = {
   setCart: any;
 };
 
-const OrderSummary = ({
+const CartSummary = ({
   subtotal,
   shipping,
   total,
@@ -87,4 +87,4 @@ const OrderSummary = ({
   );
 };
 
-export default OrderSummary;
+export default CartSummary;

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartCard from "@components/shared/ProductCard/CartCard/CartCard";
 import Shipping from "@components/Cart/Shipping/Shipping";
-import OrderSummary from "@components/Cart/OrderSummary/OrderSummary";
+import CartSummary from "@components/Cart/CartSummary/CartSummary";
 
 const Cart = () => {
   const [cart, setCart] = useState<CartItemProps>();
@@ -58,7 +58,7 @@ const Cart = () => {
         </div>
         <Shipping />
         </div>
-        <OrderSummary
+        <CartSummary
           subtotal={cart?.totalBeforeDiscount!}
           subAfterDiscount={cart?.totalAfterDiscount!}
           shipping={cart?.shippingCost!}
