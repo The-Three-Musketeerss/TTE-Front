@@ -22,6 +22,7 @@ const CreateProduct = () => {
 
   const onSubmit = (data: any) => {
     const Product: ProductProps = {
+      id: data.id,
       title: data.title,
       price: parseFloat(data.price),
       description: data.description,

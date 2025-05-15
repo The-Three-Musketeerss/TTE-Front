@@ -54,6 +54,7 @@ const EditProductForm = ({ productId, token, onCancel, onSuccess }: Props) => {
 
   const onSubmit = async (data: any) => {
     const updated = {
+      id: productId,
       title: data.title,
       price: parseFloat(data.price),
       description: data.description,
