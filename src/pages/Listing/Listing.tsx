@@ -59,7 +59,6 @@ const Listing = () => {
   const handleClearFilters = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.delete("category");
-    setSearchParams(newParams);
   };
 
 
