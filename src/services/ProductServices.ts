@@ -6,6 +6,7 @@ type Product = {
   sort?: string;
   page?: number;
   size?: number;
+  search?: string;
 };
 
 export const getProducts = async ({
@@ -13,10 +14,18 @@ export const getProducts = async ({
   sort = "",
   page = 1,
   size = 9,
+  search = "",
 }: Product) => {
-  const response = await fetch(
-    `${rootUrl}/api/products?category=${category}&orderBy=${sort}&descending=false&page=${page}&pageSize=${size}`
-  );
+  const queryParams = new URLSearchParams({
+    category,
+    orderBy: sort,
+    descending: "false",
+    page: page.toString(),
+    pageSize: size.toString(),
+    search,
+  });
+
+  const response = await fetch(`${rootUrl}/api/products?${queryParams.toString()}`);
   const data = await response.json();
   return data;
 };

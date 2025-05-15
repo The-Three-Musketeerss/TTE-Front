@@ -10,27 +10,17 @@ import { CategoryProps, ProductProps } from "@utils/types";
 import { useShop } from "@contexts/ShopContext";
 
 const Listing = () => {
-  const [searchParams] = useSearchParams();
-  const initialCategory = searchParams.get("category") || "";
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category") || "";
+  const search = searchParams.get("search") || "";
   const [categories, setCategories] = useState<CategoryProps[]>([]);
   const [products, setProducts] = useState<ProductProps[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [sorting, setSorting] = useState<"" | "price" | "title">("");
-  const [pagination, setPagination] = useState({
-    page: 1,
-    totalPages: 1,
-  });
-
-  const loading = products.length === 0;
-  const count = products.length;
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
 
   const { isInWishlist, toggleWishlist } = useShop();
-
-  useEffect(() => {
-    const categoryFromUrl = searchParams.get("category") || "";
-    setSelectedCategory(categoryFromUrl);
-  }, [searchParams]);
+  const loading = products.length === 0;
+  const count = products.length;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,16 +28,14 @@ const Listing = () => {
         category: selectedCategory,
         sort: sorting,
         page: 1,
+        search,
       });
       setProducts(response.data);
-      setPagination({
-        page: response.page,
-        totalPages: response.totalPages,
-      });
+      setPagination({ page: response.page, totalPages: response.totalPages });
     };
 
     fetchData();
-  }, [selectedCategory, sorting]);
+  }, [selectedCategory, sorting, search]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -59,10 +47,22 @@ const Listing = () => {
   }, []);
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(
-      categories.find((cat) => cat.name === category)?.name || ""
-    );
+    const newParams = new URLSearchParams(searchParams);
+    if (category) {
+      newParams.set("category", category);
+    } else {
+      newParams.delete("category");
+    }
+    setSearchParams(newParams);
   };
+
+  const handleClearFilters = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete("category");
+    newParams.delete("search");
+    setSearchParams(newParams);
+  };
+
 
   const handleLoadMore = () => {
     setPagination((prev) => ({ ...prev, page: prev.page + 1 }));
@@ -70,6 +70,7 @@ const Listing = () => {
       category: selectedCategory,
       sort: sorting,
       page: pagination.page + 1,
+      search,
     }).then((response) => {
       setProducts((prev) => [...prev, ...response.data]);
     });
@@ -77,18 +78,13 @@ const Listing = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <h2 className="font-semibold text-3xl lg:text-4xl mb-4 lg:mb-8">
-        Shop List
-      </h2>
+      <h2 className="font-semibold text-3xl lg:text-4xl mb-4 lg:mb-8">Shop List</h2>
       <div className="flex flex-row justify-between items-baseline mb-4 lg:mb-8">
         <aside className="hidden lg:block lg:min-w-1/4 xl:min-w-1/6 bg-white p-4 rounded-lg shadow-md mb-8 mr-28">
           <span className="flex flex-row justify-between items-center mb-2 lg:mb-4">
             <h3 className="font-semibold text-lg">Filters</h3>
-            <h4
-              onClick={() => handleCategorySelect("")}
-              className="text-gray-400 underline cursor-pointer"
-            >
-              Clear filter
+            <h4 onClick={handleClearFilters} className="text-gray-400 underline cursor-pointer">
+              Clear filters
             </h4>
           </span>
           <h4 className="font-bold text-sm mb-2">Categories</h4>
@@ -104,40 +100,25 @@ const Listing = () => {
         <div className="flex flex-col space-y-5 items-end">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn m-1">
-              Sort by{" "}
-              {sorting === ""
-                ? ""
-                : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
+              Sort by {sorting === "" ? "" : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-            >
-              <li>
-                <a onClick={() => setSorting("price")}>Price</a>
-              </li>
-              <li>
-                <a onClick={() => setSorting("title")}>Title</a>
-              </li>
+            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+              <li><a onClick={() => setSorting("price")}>Price</a></li>
+              <li><a onClick={() => setSorting("title")}>Title</a></li>
             </ul>
           </div>
           <p className="text-sm text-primary">Showing {count} Products</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
             {loading
-              ? ([1, 2, 3, 4, 5, 6] as number[]).map((index) => (
-                  <Skeleton key={index} />
-                ))
+              ? ([1, 2, 3, 4, 5, 6] as number[]).map((index) => <Skeleton key={index} />)
               : products.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    title={product.title}
-                    price={product.price}
-                    image={product.image}
-                    isFavorite={isInWishlist(product.id)}
-                    onToggleFavorite={toggleWishlist}
-                  />
-                ))}
+                <ProductCard
+                  key={product.id}
+                  {...product}
+                  isFavorite={isInWishlist(product.id)}
+                  onToggleFavorite={toggleWishlist}
+                />
+              ))}
           </div>
           {!loading && pagination.totalPages !== pagination.page && (
             <div className="w-full flex justify-center mt-4">
