@@ -38,3 +38,23 @@ export type securityQuestionProps = {
   id: number;
   question: string;
 };
+
+export type orderProps = {
+  id: number;
+  userId: number;
+  couponId: number | null;
+  totalBeforeDiscount: number;
+  totalAfterDiscount: number;
+  shippingCost: number;
+  finalTotal: number;
+  status: string;
+  customerName: string;
+  address: string;
+  paymentStatus: string;
+  createdAt: string;
+  orderItems: {
+    productId: number;
+    quantity: number;
+    price: number;
+  }[];
+};
