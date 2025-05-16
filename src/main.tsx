@@ -17,6 +17,7 @@ import { Toaster } from "react-hot-toast";
 import Cart from "@pages/Cart/Cart";
 import ForgotPassword from "@pages/ForgotPassword/ForgotPassword";
 import Signup from "@pages/Signup/Signup";
+import OrderDetail from "@pages/Orders/Id/OrderDetail";
 
 const root = document.getElementById("root");
 
@@ -40,6 +41,7 @@ ReactDOM.createRoot(root!).render(
           <Route path="/" element={<Landing />} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/listing" element={<Listing />} />
           <Route path="/listing/:id" element={<ProductDetail />} />

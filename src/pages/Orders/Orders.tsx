@@ -3,6 +3,7 @@ import { useGetUser } from "@hooks/useGetUser";
 import { getOrders } from "@services/OrderServices";
 import Table from "@components/shared/Table/Table";
 import TableSkeleton from "@components/shared/Table/Skeleton/Skeleton";
+import { Link } from "react-router-dom";
 
 const Orders = () => {
   const headers = [
@@ -26,7 +27,11 @@ const Orders = () => {
       try {
         const response = await getOrders(user.token);
         const formatted = response.data.map((order: any) => ({
-          orderNo: order.id,
+          orderNo: (
+            <Link to={`/orders/${order.id}`} className="text-blue-500 hover:underline">
+              {order.id}
+            </Link>
+          ),
           customerName: order.customerName,
           paymentStatus: order.paymentStatus,
           amount: `$${order.finalTotal.toFixed(2)}`,
@@ -35,15 +40,14 @@ const Orders = () => {
           status: order.status,
         }));
         setOrders(formatted);
+        setLoading(false);
       } catch (err) {
         console.error("Failed to fetch orders", err);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchOrders();
-  }, [user]);
+  }, [user?.token]);
 
   return (
     <div className="min-h-screen">
