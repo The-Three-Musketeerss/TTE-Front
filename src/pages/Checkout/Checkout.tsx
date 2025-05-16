@@ -4,8 +4,6 @@ import { useGetUser } from "@hooks/useGetUser";
 import { getCart } from "@services/CartServices";
 import { CartItemProps } from "@utils/types";
 
-import CartCard from "@components/shared/CartCard/CartCard";
-import OrderSummary from "@components/Checkout/OrderSummary/OrderSummary";
 import AddressForm from "@components/Checkout/AddressForm/AddressForm";
 import ShippingMethodForm from "@components/Checkout/ShippingMethodForm/ShippingMethodForm";
 import PaymentForm from "@components/Checkout/PaymentForm/PaymentForm";
