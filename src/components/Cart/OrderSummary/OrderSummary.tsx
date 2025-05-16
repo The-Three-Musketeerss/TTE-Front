@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { applyCoupon, getCart } from "@services/CartServices";
 import { useGetUser } from "@hooks/useGetUser";
 import { useShop } from "@contexts/ShopContext";
+import { useNavigate } from "react-router-dom";
+
 
 type OrderSummaryProps = {
   subtotal: number;
@@ -33,6 +35,7 @@ const OrderSummary = ({
 
   const { refreshCart } = useShop();
   const { user } = useGetUser();
+  const navigate = useNavigate();
 
   const onSubmit = (data: any) => {
     toast.promise(applyCoupon(user?.token, data.couponCode), {
@@ -82,7 +85,7 @@ const OrderSummary = ({
         <span className="text-sm font-semibold">Total</span>
         <span className="text-sm font-semibold">${total}</span>
       </div>
-      <Button text="Continue to checkout" />
+      <Button text="Continue to checkout" onClick={() => navigate("/checkout")}/>
     </form>
   );
 };
