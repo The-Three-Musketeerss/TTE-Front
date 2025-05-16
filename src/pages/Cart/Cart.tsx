@@ -28,7 +28,7 @@ const Cart = () => {
     }
   }, [hasLoggedIn, user?.role]);
 
-  if (cart?.shoppingCart.length === 0) {
+  if (cart?.shoppingCart.length === 0 || !cart) {
     return (
       <section className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-2xl font-semibold">Your cart is empty</h1>
