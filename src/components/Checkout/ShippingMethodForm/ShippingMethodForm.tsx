@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@components/shared/Button/Button";
 import ShippingOption from "@components/Checkout/ShippingOption/ShippingOption";
 
@@ -9,6 +9,12 @@ type Props = {
 
 const ShippingMethodForm = ({ onNext, initialValue }: Props) => {
   const [selectedOption, setSelectedOption] = useState(initialValue || "surepost");
+
+  useEffect(() => {
+    if (initialValue) {
+      setSelectedOption(initialValue);
+    }
+  }, [initialValue]);
 
   return (
     <form className="flex flex-col gap-4">
