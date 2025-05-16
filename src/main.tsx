@@ -15,6 +15,7 @@ import Login from "@pages/Login/Login";
 import { CookiesProvider } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 import Cart from "@pages/Cart/Cart";
+import Checkout from "@pages/Checkout/Checkout";
 import ForgotPassword from "@pages/ForgotPassword/ForgotPassword";
 import Signup from "@pages/Signup/Signup";
 
@@ -39,6 +40,7 @@ ReactDOM.createRoot(root!).render(
         <Route element={<BaseLayout showFooter />}>
           <Route path="/" element={<Landing />} />
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/checkout" element={<Checkout/>} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/listing" element={<Listing />} />
