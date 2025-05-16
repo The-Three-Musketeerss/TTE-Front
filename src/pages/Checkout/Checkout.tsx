@@ -11,6 +11,7 @@ import ShippingMethodForm from "@components/Checkout/ShippingMethodForm/Shipping
 import PaymentForm from "@components/Checkout/PaymentForm/PaymentForm";
 import StepperHeader from "@components/Checkout/StepperHeader/StepperHeader";
 import { useShop } from "@contexts/ShopContext";
+import CheckoutSummary from "@components/Checkout/CheckoutSummary/CheckoutSummary";
 
 const Checkout = () => {
   const [cart, setCart] = useState<CartItemProps>();
@@ -110,26 +111,7 @@ const Checkout = () => {
         {renderStepForm()}
       </div>
 
-      <div className="w-full lg:w-1/2 flex flex-col gap-6">
-        <div className="flex flex-col gap-4 max-h-80 overflow-y-scroll">
-          {cart.shoppingCart.map((item) => (
-            <CartCard
-              key={item.productId}
-              id={item.productId}
-              quantity={item.quantity}
-              token={user?.token}
-              setCart={setCart}
-            />
-          ))}
-        </div>
-        <OrderSummary
-          subtotal={cart.totalBeforeDiscount}
-          subAfterDiscount={cart.totalAfterDiscount}
-          shipping={cart.shippingCost}
-          total={cart.finalTotal}
-          setCart={setCart}
-        />
-      </div>
+      <CheckoutSummary cart={cart} setCart={setCart}/>
     </section>
   );
 };
