@@ -65,13 +65,20 @@ const EmployeeHomePage = () => {
         </>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-14">
-          {buttonList.map((button, index) => (
-            <Button
-              key={index}
-              text={button.text}
-              onClick={() => handleButtonClick(button)}
-            />
-          ))}
+          {buttonList
+            .filter((_, index) => {
+              if (user?.role !== "Admin" && index >= buttonList.length - 3) {
+                return false;
+              }
+              return true;
+            })
+            .map((button, index) => (
+              <Button
+                key={index}
+                text={button.text}
+                onClick={() => handleButtonClick(button)}
+              />
+            ))}
         </div>
       )}
     </section>
