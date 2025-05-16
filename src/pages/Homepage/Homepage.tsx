@@ -66,7 +66,7 @@ const EmployeeHomePage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-14">
           {buttonList
-            .filter((button, index) => {
+            .filter((_, index) => {
               if (user?.role !== "Admin" && index >= buttonList.length - 3) {
                 return false;
               }
