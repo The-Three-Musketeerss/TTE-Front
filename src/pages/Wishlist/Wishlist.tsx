@@ -11,7 +11,7 @@ import { useShop } from "@contexts/ShopContext";
 const Wishlist = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const { toggleWishlist } = useShop();
+  const { toggleWishlist, isInWishlist, wishlist } = useShop();
   const navigate = useNavigate();
   const { user } = useGetUser();
 
@@ -29,7 +29,7 @@ const Wishlist = () => {
     };
 
     fetchWishlist();
-  }, [user?.token]);
+  }, [user?.token, wishlist]);
 
   return (
     <div className="flex flex-col items-center min-h-screen px-4">
@@ -54,7 +54,7 @@ const Wishlist = () => {
               price={item.price}
               image={item.image}
               id={item.id}
-              isFavorite={true}
+              isFavorite={isInWishlist(item.id)}
               onToggleFavorite={toggleWishlist}
             />
           ))}

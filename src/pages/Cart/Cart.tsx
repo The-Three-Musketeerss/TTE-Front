@@ -3,7 +3,7 @@ import { getCart } from "@services/CartServices";
 import { CartItemProps } from "@utils/types";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import CartCard from "@components/shared/ProductCard/CartCard/CartCard";
+import CartCard from "@components/shared/CartCard/CartCard";
 import Shipping from "@components/Cart/Shipping/Shipping";
 import CartSummary from "@components/Cart/CartSummary/CartSummary";
 

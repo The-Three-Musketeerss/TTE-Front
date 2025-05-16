@@ -5,7 +5,7 @@ import { getCart } from "@services/CartServices";
 import { useGetUser } from "@hooks/useGetUser";
 
 type ShopContextType = {
-  wishlist: number[];
+  wishlist: Set<number>;
   isInWishlist: (productId: number) => boolean;
   toggleWishlist: (productId: number) => Promise<void>;
   loading: boolean;
@@ -19,7 +19,7 @@ const ShopContext = createContext<ShopContextType | null>(null);
 
 export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useGetUser();
-  const [wishlist, setWishlist] = useState<number[]>([]);
+  const [wishlist, setWishlist] = useState<Set<number>>(new Set());
   const [loading, setLoading] = useState(true);
   const [cartCount, setCartCount] = useState<number>(0);
 
@@ -28,7 +28,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       const data = await getWishlist(user.token);
-      const ids = data.map((product) => product.id);
+      const ids = new Set(data.map((product) => product.id));
       setWishlist(ids);
     } catch (err) {
       console.error("Failed to fetch wishlist", err);
@@ -53,7 +53,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const resetShop = () => {
-    setWishlist([]);
+    setWishlist(new Set());
     setCartCount(0);
   };
 
@@ -66,7 +66,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [user?.token, user?.role]);
 
-  const isInWishlist = (productId: number) => wishlist.includes(productId);
+  const isInWishlist = (productId: number) => wishlist.has(productId);
 
   const toggleWishlist = async (productId: number) => {
     if (!user?.token || user?.role !== "Shopper") {
@@ -75,13 +75,21 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     try {
-      if (wishlist.includes(productId)) {
+      if (wishlist.has(productId)) {
         await removeFromWishlist(productId, user.token);
-        setWishlist((prev) => prev.filter((id) => id !== productId));
+        setWishlist((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(productId);
+          return newSet;
+        });
         toast.success("Removed from wishlist");
       } else {
         await addToWishlist(productId, user.token);
-        setWishlist((prev) => [...prev, productId]);
+        setWishlist((prev) => {
+          const newSet = new Set(prev);
+          newSet.add(productId);
+          return newSet;
+        });
         toast.success("Added to wishlist");
       }
     } catch (error) {
