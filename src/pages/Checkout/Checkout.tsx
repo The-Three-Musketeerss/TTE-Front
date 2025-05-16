@@ -19,6 +19,7 @@ const Checkout = () => {
   const [addressFormData, setAddressFormData] = useState<any>(null);
   const [addressValue, setAddressValue] = useState<string>("");
   const [shippingOption, setShippingOption] = useState<string | null>(null);
+  const [paymentInfo, setPaymentInfo] = useState<any>(null);
 
   const { hasLoggedIn, user } = useGetUser();
   const { refreshCart } = useShop();
@@ -81,8 +82,8 @@ const Checkout = () => {
       return (
         <ShippingMethodForm
           initialValue={shippingOption || undefined}
-          onNext={(selected) => {
-            setShippingOption(selected);
+          onChange={(selected: string) => setShippingOption(selected)}
+          onNext={() => {
             setStep("payment");
           }}
         />
@@ -92,7 +93,8 @@ const Checkout = () => {
     return (
       <PaymentForm
         address={addressValue}
-        shippingMethod={shippingOption}
+        initialValues={paymentInfo}
+        onChange={(paymentData: any) => setPaymentInfo(paymentData)}
         onFinish={handleOrderComplete}
       />
     );

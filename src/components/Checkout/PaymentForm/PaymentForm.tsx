@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, Controller, FieldError } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PaymentResolver } from "./PaymentForm.resolver";
@@ -13,19 +14,46 @@ type Props = {
   address: string;
   shippingMethod?: string | null;
   onFinish: () => void;
+  onChange: (paymentData: any) => void;
+  initialValues?: any; // ✅ optional values to restore
 };
 
-const PaymentForm = ({ address, onFinish }: Props) => {
+const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
   const { user } = useGetUser();
 
   const {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(PaymentResolver),
+    defaultValues: {
+      cardholderName: "",
+      cardNumber: "",
+      expiryMonth: "",
+      expiryYear: "",
+      cvc: "",
+      saveCard: false,
+      ...initialValues,
+    },
   });
+
+  useEffect(() => {
+  let timeout: ReturnType<typeof setTimeout>;
+
+  const subscription = watch((value) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => onChange(value), 1000);
+  });
+
+  return () => {
+    clearTimeout(timeout);
+    subscription.unsubscribe();
+  };
+}, [watch, onChange]);
+
 
   const onSubmit = async () => {
     await toast.promise(createOrder(address, user?.token), {
