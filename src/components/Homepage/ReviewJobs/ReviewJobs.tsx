@@ -17,7 +17,7 @@ const ReviewJobs = () => {
 
   useEffect(() => {
     if(user?.role !== "Admin"){
-      navigate("/employee", { replace: true });
+      navigate("/404", {replace: true});
     }
     const fetchJobs = async () => {
       const response = await getJobs(user?.token);
@@ -61,6 +61,9 @@ const ReviewJobs = () => {
     { label: "Type", key: "type" },
     { label: "Item Id", key: "id_item" },
     { label: "Operation", key: "operation" },
+    { label: "Item Name", key: "itemName" },
+    { label: "Created At", key: "createdAt" },
+    { label: "Created By", key: "createdBy" },
     { label: "Action", key: "action" },
   ];
 

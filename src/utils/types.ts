@@ -30,8 +30,11 @@ export type CartItemProps = {
 export type JobItemProps = {
   id: number;
   id_item: number;
+  itemName: string;
   operation: string;
   type: string;
+  createdAt: string;
+  createdBy: string;
 };
 
 export type securityQuestionProps = {
