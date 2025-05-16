@@ -53,11 +53,6 @@ const AddressForm = ({ onNext, initialValues }: Props) => {
         error={errors.apartment as FieldError}
         placeholder="Apartment, suite, etc (optional)"
       />
-      <BaseInput
-        register={register("city")}
-        error={errors.city as FieldError}
-        placeholder="City"
-      />
       <div className="flex gap-2">
         <BaseSelect
           register={register("country")}
@@ -70,8 +65,8 @@ const AddressForm = ({ onNext, initialValues }: Props) => {
           ]}
         />
         <BaseSelect
-          register={register("state")}
-          error={errors.state as FieldError}
+          register={register("city")}
+          error={errors.city as FieldError}
           options={[
             { label: "City", value: "" },
             { label: "Bogotá", value: "Bogotá" },

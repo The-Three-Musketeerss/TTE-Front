@@ -17,17 +17,13 @@ export const AddressResolver = yup.object().shape({
     .string()
     .notRequired(),
 
-  city: yup
-    .string()
-    .required("City is required"),
-
   country: yup
     .string()
     .required("Country is required"),
 
-  state: yup
+  city: yup
     .string()
-    .required("State is required"),
+    .required("City is required"),
 
   zipcode: yup
     .string()
