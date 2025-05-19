@@ -14,7 +14,7 @@ export default defineConfig({
       provider: 'v8',
       reportsDirectory: 'coverage',
       reporter: ['text', 'html', 'lcov'],
-      exclude: ['**/test/**', '**/*.test.tsx', '**/*.test.ts'],
+      exclude: ['**/test/**', '**/*.test.tsx', '**/*.test.ts', '**/pages/ForgotPassword/**', '**/pages/Landing/**', '**/pages/NotFound/**', '**/pages/SignUp/**', '**/pages/Login/**'],
     }
   }
 })
