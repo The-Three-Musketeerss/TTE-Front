@@ -1,7 +1,7 @@
-import Carousel from "@components/Landing/Carousel";
-import LatestArrivals from "@components/Landing/LatestArrivals";
-import BestSelling from "@components/Landing/BestSelling";
-import TopCategories from "@components/Landing/TopCategories";
+import Carousel from "@components/Landing/Carousel/Carousel";
+import LatestArrivals from "@components/Landing/LatestArrivals/LatestArrivals";
+import BestSelling from "@components/Landing/BestSelling/BestSelling";
+import TopCategories from "@components/Landing/TopCategories/TopCategories";
 
 const Landing = () => {
   return (
