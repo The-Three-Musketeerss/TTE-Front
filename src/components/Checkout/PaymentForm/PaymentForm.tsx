@@ -15,7 +15,7 @@ type Props = {
   shippingMethod?: string | null;
   onFinish: () => void;
   onChange: (paymentData: any) => void;
-  initialValues?: any; // ✅ optional values to restore
+  initialValues?: any;
 };
 
 const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
