@@ -2,7 +2,6 @@ import { render, screen, fireEvent, waitFor, within } from "@testing-library/rea
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import CategoryList from "./CategoryList";
 
-// Mocks
 vi.mock("@services/CategoryServices", async () => {
     return {
         getCategories: vi.fn(),
