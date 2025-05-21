@@ -69,12 +69,14 @@ const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
       <h3 className="text-lg font-medium">Payment Details</h3>
 
       <BaseInput
+        label="Cardholder Name"
         register={register("cardholderName")}
         error={errors.cardholderName as FieldError}
         placeholder="Cardholder Name"
       />
 
       <BaseInput
+        label="Card Number"
         register={register("cardNumber")}
         error={errors.cardNumber as FieldError}
         placeholder="Card Number"
@@ -82,6 +84,7 @@ const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
 
       <div className="flex gap-2">
         <BaseSelect
+          label="Expiry Month"
           register={register("expiryMonth")}
           error={errors.expiryMonth as FieldError}
           options={[
@@ -93,6 +96,7 @@ const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
           ]}
         />
         <BaseSelect
+          label="Expiry Year"
           register={register("expiryYear")}
           error={errors.expiryYear as FieldError}
           options={[
@@ -104,6 +108,7 @@ const PaymentForm = ({ address, onFinish, onChange, initialValues }: Props) => {
           ]}
         />
         <BaseInput
+          label="CVC"
           register={register("cvc")}
           error={errors.cvc as FieldError}
           placeholder="CVC"
