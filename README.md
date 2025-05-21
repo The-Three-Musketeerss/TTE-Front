@@ -34,7 +34,9 @@ To run the project locally:
 | react-cookie                 | ^8.0.1     | Handling cookies in React                                              |
 | react-hot-toast              | ^2.5.2     | Notifications for React                                                |
 | react-icons                  | ^5.5.0     | Popular icon packs as React components                                |
+| react-testing-library        | ^16.3.0    | Test react components and their behaviours                             |
 | tailwindcss                  | ^4.1.5     | Utility-first CSS framework                                            |
 | daisyui                      | ^5.0.35    | Tailwind CSS component library                                         |
 | vite                         | ^6.3.1     | Next-generation frontend tooling                                       |
+| vitest                       | ^3.1.3     | Simplifies test writing and execution with vite                        |
 | typescript                   | ~5.7.2     | Static type checking for JavaScript                                    |
