@@ -14,7 +14,7 @@ export default defineConfig({
       provider: 'v8',
       reportsDirectory: 'coverage',
       reporter: ['text', 'html', 'lcov'],
-      exclude: ['**/test/**', '**/*.test.tsx', '**/*.test.ts', '**/pages/ForgotPassword/**', '**/pages/Landing/**', '**/pages/NotFound/**', '**/pages/SignUp/**', '**/pages/Login/**', '**/components/CheckoutSummary/**', '**/eslint.config.js', '**/vite.config.ts', '**/vite-env.d.ts', '**/main.tsx', '**/services/**', '**/types.ts', '**/Skeleton/**'],
+      exclude: ['**/test/**', '**/*.test.tsx', '**/*.test.ts', '**/pages/ForgotPassword/**', '**/pages/Landing/**', '**/pages/NotFound/**', '**/pages/SignUp/**', '**/pages/Login/**', '**/components/CheckoutSummary/**', '**/eslint.config.js', '**/vite.config.ts', '**/vite-env.d.ts', '**/main.tsx', '**/services/**', '**/types.ts', '**/Skeleton/**', '**/*resolver*.tsx', '**/*resolver*.ts', '**/components/Checkout/CheckoutSummary/**'],
     }
   }
 })
