@@ -37,6 +37,7 @@ export default defineConfig({
         "**/components/Checkout/CheckoutSummary/**",
         "**/components/shared/Footer/**",
         "**/components/cart/Shipping/**",
+        "**/components/ProductDetail/ProductDetailSkeleton.tsx",
         "**/hooks/**",
       ],
     },
