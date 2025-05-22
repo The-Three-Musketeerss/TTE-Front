@@ -4,6 +4,7 @@ const TableSkeleton = () => {
 
   return (
     <div className="bg-white rounded-lg shadow overflow-x-auto w-full animate-pulse">
+      <span className="sr-only">Loading table...</span>
       <table className="min-w-full text-sm">
         <thead className="bg-gray-50 text-left font-semibold text-black">
           <tr>
