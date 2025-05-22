@@ -1,20 +1,44 @@
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react(), tsconfigPaths()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './vitest.setup.ts',
+    environment: "jsdom",
+    setupFiles: "./vitest.setup.ts",
     coverage: {
-      provider: 'v8',
-      reportsDirectory: 'coverage',
-      reporter: ['text', 'html', 'lcov'],
-      exclude: ['**/test/**', '**/*.test.tsx', '**/*.test.ts', '**/pages/ForgotPassword/**', '**/pages/Landing/**', '**/pages/NotFound/**', '**/pages/SignUp/**', '**/pages/Login/**', '**/components/CheckoutSummary/**', '**/eslint.config.js', '**/vite.config.ts', '**/vite-env.d.ts', '**/main.tsx', '**/services/**', '**/types.ts', '**/Skeleton/**', '**/*resolver*.tsx', '**/*resolver*.ts', '**/components/Checkout/CheckoutSummary/**'],
-    }
-  }
-})
+      provider: "v8",
+      reportsDirectory: "coverage",
+      reporter: ["text", "html", "lcov"],
+      exclude: [
+        "**/test/**",
+        "**/*.test.tsx",
+        "**/*.test.ts",
+        "**/pages/ForgotPassword/**",
+        "**/pages/Landing/**",
+        "**/pages/NotFound/**",
+        "**/pages/SignUp/**",
+        "**/pages/Login/**",
+        "**/pages/Homepage/**",
+        "**/components/CheckoutSummary/**",
+        "**/eslint.config.js",
+        "**/vite.config.ts",
+        "**/vite-env.d.ts",
+        "**/main.tsx",
+        "**/services/**",
+        "**/types.ts",
+        "**/Skeleton/**",
+        "**/*resolver*.tsx",
+        "**/*resolver*.ts",
+        "**/components/Checkout/CheckoutSummary/**",
+        "**/components/shared/Footer/**",
+        "**/components/cart/Shipping/**",
+        "**/hooks/**",
+      ],
+    },
+  },
+});
