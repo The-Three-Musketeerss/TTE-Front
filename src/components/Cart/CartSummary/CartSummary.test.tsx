@@ -112,7 +112,7 @@ describe("CartSummary", () => {
     });
   });
 
-  it("navigates to checkout on button click", () => {
+  it("navigates to checkout on button click", async () => {
     render(
       <CartSummary
         subtotal={100}
@@ -124,6 +124,9 @@ describe("CartSummary", () => {
     );
 
     fireEvent.click(screen.getByText("Continue to checkout"));
-    expect(navigate).toHaveBeenCalledWith("/checkout");
+
+    await waitFor(() => {
+      expect(navigate).toHaveBeenCalledWith("/checkout");
+    });
   });
 });

@@ -60,7 +60,7 @@ describe("Listing", () => {
       refreshCart: vi.fn(),
       resetShop: vi.fn(),
     });
-    
+
     (CategoryServices.getCategories as any).mockResolvedValue({
       data: [
         { id: 1, name: "Books" },
@@ -70,8 +70,8 @@ describe("Listing", () => {
 
     (ProductServices.getProducts as any).mockResolvedValue({
       data: [
-        { id: 1, title: "Product A", price: 10, image: "", description: "" },
-        { id: 2, title: "Product B", price: 20, image: "", description: "" },
+        { id: 3, title: "Product A", price: 10, image: "", description: "" },
+        { id: 4, title: "Product B", price: 20, image: "", description: "" },
       ],
       page: 1,
       totalPages: 2,
@@ -80,7 +80,7 @@ describe("Listing", () => {
 
   const setup = () => render(<Listing />, { wrapper: MemoryRouter });
 
-  it("renders loading skeletons initially", () => {
+  it("renders loading skeletons initially", async () => {
     (ProductServices.getProducts as any).mockResolvedValueOnce({
       data: [],
       page: 1,
@@ -88,7 +88,9 @@ describe("Listing", () => {
     });
 
     setup();
-    expect(screen.getAllByText("Loading...").length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(screen.getAllByText("Loading...").length).toBeGreaterThan(0);
+    })
   });
 
   it("renders fetched categories and products", async () => {
