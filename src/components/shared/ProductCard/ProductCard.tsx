@@ -38,9 +38,9 @@ const ProductCard = ({ title, price, image, id = 0, isFavorite, onToggleFavorite
           onClick={handleToggleWishlist}
         >
           {isFavorite ? (
-            <AiFillHeart className="icon-size cursor-pointer" />
+            <AiFillHeart title="Remove from wishlist" className="icon-size cursor-pointer" />
           ) : (
-            <AiOutlineHeart className="icon-size cursor-pointer" />
+            <AiOutlineHeart title="Add to wishlist" className="icon-size cursor-pointer" />
           )}
         </button>
       </div>

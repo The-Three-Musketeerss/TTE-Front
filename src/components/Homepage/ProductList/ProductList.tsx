@@ -74,10 +74,12 @@ const ProductList = () => {
     actions: (
       <div className="flex gap-4 justify-start">
         <FaEdit
+          title="Edit Button"
           className="text-blue-500 hover:cursor-pointer"
           onClick={() => setEditingProductId(product.id)}
         />
         <FaTrash
+          title="Delete Button"
           className="text-red-500 hover:cursor-pointer"
           onClick={() => handleDelete(product.id)}
         />

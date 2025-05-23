@@ -90,7 +90,7 @@ const Header = () => {
             <>
               {isShopper && (
                 <div className="flex-row-center gap-1 cursor-pointer relative" onClick={() => navigate("/cart")}>
-                  <HiOutlineShoppingBag className="icon-size" />
+                  <HiOutlineShoppingBag className="icon-size" title="Cart Icon" />
                   {cartCount > 0 && (
                     <span className="absolute -top-4.5 -right-3 rounded-full bg-red-500 text-white text-xs px-2 py-0.5">
                       {cartCount}

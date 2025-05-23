@@ -40,3 +40,17 @@ To run the project locally:
 | vite                         | ^6.3.1     | Next-generation frontend tooling                                       |
 | vitest                       | ^3.1.3     | Simplifies test writing and execution with vite                        |
 | typescript                   | ~5.7.2     | Static type checking for JavaScript                                    |
+| react-query                  | ~5.76.2    | Handling cache                                                         |
+
+## Test Coverage
+
+**Current coverage summary:**
+
+| Metric      | Coverage |
+|-------------|----------|
+| Statements  | 95.85%   |
+| Branches    | 89.12%   |
+| Functions   | 88.53%   |
+| Lines       | 95.85%   |
+
+![alt text](image.png)

@@ -54,10 +54,12 @@ const CategoryList = () => {
     actions: (
       <div className="flex gap-4 justify-start">
         <FaEdit
+          title="Edit category"
           className="text-blue-500 hover:cursor-pointer"
           onClick={() => setEditingCategoryId(category.id)}
         />
         <FaTrash
+          title="Delete category"
           className="text-red-500 hover:cursor-pointer"
           onClick={() => handleDelete(category.id)}
         />
