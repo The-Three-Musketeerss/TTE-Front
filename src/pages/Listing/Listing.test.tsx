@@ -70,8 +70,8 @@ describe("Listing", () => {
 
     (ProductServices.getProducts as any).mockResolvedValue({
       data: [
-        { id: 3, title: "Product A", price: 10, image: "", description: "" },
-        { id: 4, title: "Product B", price: 20, image: "", description: "" },
+        { id: 1, title: "Product A", price: 10, image: "", description: "" },
+        { id: 2, title: "Product B", price: 20, image: "", description: "" },
       ],
       page: 1,
       totalPages: 2,

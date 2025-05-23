@@ -30,13 +30,21 @@ const CreateEmployee = () => {
         return;
       }
 
-      await createEmployee(data, user.token);
+      const employee = {
+        name: data.name,
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+      };
+
+      await createEmployee(employee, user.token);
       toast.success("Employee created successfully");
       reset();
     } catch (error: any) {
       setBackendError(error.message);
     }
   };
+
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md mx-auto">
