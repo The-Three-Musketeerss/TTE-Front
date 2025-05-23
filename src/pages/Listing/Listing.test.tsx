@@ -148,15 +148,26 @@ describe("Listing", () => {
     setup();
 
     await waitFor(() => screen.getByText("Product A"));
+
+    (ProductServices.getProducts as any).mockResolvedValueOnce({
+      data: [
+        { id: 3, title: "Product C", price: 30, image: "", description: "" },
+        { id: 4, title: "Product D", price: 40, image: "", description: "" },
+      ],
+      page: 2,
+      totalPages: 2,
+    });
+
     fireEvent.click(screen.getByText("Load more products"));
 
     await waitFor(() => {
       expect(ProductServices.getProducts).toHaveBeenCalledWith(
         expect.objectContaining({ page: 2 })
       );
+      expect(screen.getByText("Product C")).toBeInTheDocument();
+      expect(screen.getByText("Product D")).toBeInTheDocument();
     });
   });
-
   it("shows product count", async () => {
     setup();
     await waitFor(() => {
