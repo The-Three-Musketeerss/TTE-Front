@@ -5,37 +5,33 @@ import Checkbox from "@components/shared/Checkbox/Checkbox";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import { getCategories } from "@services/CategoryServices";
-import { getProducts } from "@services/ProductServices";
-import { CategoryProps, ProductProps } from "@utils/types";
+import { CategoryProps } from "@utils/types";
 import { useShop } from "@contexts/ShopContext";
+import { useProducts } from "@hooks/useProducts";
 
 const Listing = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get("category") || "";
   const search = searchParams.get("search") || "";
   const [categories, setCategories] = useState<CategoryProps[]>([]);
-  const [products, setProducts] = useState<ProductProps[]>([]);
   const [sorting, setSorting] = useState<"" | "price" | "title">("");
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
+  const [products, setProducts] = useState<any[]>([]);
 
   const { isInWishlist, toggleWishlist } = useShop();
-  const loading = products.length === 0;
-  const count = products.length;
+
+  const { data, isLoading } = useProducts(selectedCategory, sorting, search, pagination.page);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await getProducts({
-        category: selectedCategory,
-        sort: sorting,
-        page: 1,
-        search,
-      });
-      setProducts(response.data);
-      setPagination({ page: response.page, totalPages: response.totalPages });
-    };
-
-    fetchData();
-  }, [selectedCategory, sorting, search]);
+    if (data) {
+      if (pagination.page === 1) {
+        setProducts(data.data);
+      } else {
+        setProducts((prev) => [...prev, ...data.data]);
+      }
+      setPagination({ page: data.page, totalPages: data.totalPages });
+    }
+  }, [data]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -53,26 +49,19 @@ const Listing = () => {
     } else {
       newParams.delete("category");
     }
+    setPagination({ page: 1, totalPages: 1 });
     setSearchParams(newParams);
   };
 
   const handleClearFilters = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.delete("category");
+    setPagination({ page: 1, totalPages: 1 });
     setSearchParams(newParams);
   };
 
-
   const handleLoadMore = () => {
     setPagination((prev) => ({ ...prev, page: prev.page + 1 }));
-    getProducts({
-      category: selectedCategory,
-      sort: sorting,
-      page: pagination.page + 1,
-      search,
-    }).then((response) => {
-      setProducts((prev) => [...prev, ...response.data]);
-    });
   };
 
   return (
@@ -102,13 +91,13 @@ const Listing = () => {
               Sort by {sorting === "" ? "" : sorting.charAt(0).toUpperCase() + sorting.slice(1)}
             </div>
             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-              <li><a onClick={() => setSorting("price")}>Price</a></li>
-              <li><a onClick={() => setSorting("title")}>Title</a></li>
+              <li><a onClick={() => { setSorting("price"); setPagination({ page: 1, totalPages: 1 }); }}>Price</a></li>
+              <li><a onClick={() => { setSorting("title"); setPagination({ page: 1, totalPages: 1 }); }}>Title</a></li>
             </ul>
           </div>
-          <p className="text-sm text-primary">Showing {count} Products</p>
+          <p className="text-sm text-primary">Showing {products.length} Products</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
-            {loading
+            {isLoading && products.length === 0
               ? ([1, 2, 3, 4, 5, 6] as number[]).map((index) => <Skeleton key={index} />)
               : products.map((product) => (
                 <ProductCard
@@ -119,7 +108,7 @@ const Listing = () => {
                 />
               ))}
           </div>
-          {!loading && pagination.totalPages !== pagination.page && (
+          {!isLoading && pagination.totalPages !== pagination.page && (
             <div className="w-full flex justify-center mt-4">
               <Button onClick={handleLoadMore} text="Load more products" />
             </div>
