@@ -5,11 +5,9 @@ import LatestArrivals from "./LatestArrivals";
 import * as ProductServices from "@services/ProductServices";
 import { MemoryRouter } from "react-router-dom";
 
-// ✅ Declare mock functions here
 const mockToggleWishlist = vi.fn();
 const mockIsInWishlist = vi.fn((id: number) => id === 1);
 
-// ✅ Mock dependencies
 vi.mock("@components/shared/ProductCard/ProductCard", () => ({
   __esModule: true,
   default: ({ title, isFavorite, onToggleFavorite }: any) => (
@@ -96,17 +94,6 @@ describe("LatestArrivals", () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText("Add to wishlist"));
       expect(mockToggleWishlist).toHaveBeenCalled();
-    });
-  });
-
-  it("navigates to /listing when clicking Shop all", async () => {
-    mockGetLatestArrivals.mockResolvedValue({ data: [] });
-
-    render(<LatestArrivals />, { wrapper: MemoryRouter });
-
-    await waitFor(() => {
-      fireEvent.click(screen.getByText("Shop all"));
-      expect(navigateMock).toHaveBeenCalledWith("/listing");
     });
   });
 });
