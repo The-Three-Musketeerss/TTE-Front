@@ -5,7 +5,6 @@ import * as OrderServices from "@services/OrderServices";
 import * as useGetUserModule from "@hooks/useGetUser";
 import { useNavigate, useParams } from "react-router-dom";
 
-// Mocks
 vi.mock("@services/OrderServices", () => ({
   getOrderById: vi.fn(),
 }));
@@ -36,19 +35,19 @@ vi.mock("@components/OrderDetail/OrderSummary/OrderSummary", () => ({
 }));
 
 describe("OrderDetail", () => {
-  const navigate = vi.fn();
+  const navigateMock = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (useNavigate as unknown as ReturnType<typeof vi.fn>).mockReturnValue(navigate);
+    (useNavigate as unknown as ReturnType<typeof vi.fn>).mockReturnValue(navigateMock);
     (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({ id: "42" });
 
     vi.spyOn(useGetUserModule, "useGetUser").mockReturnValue({
       user: {
         username: "test-user",
         email: "test@example.com",
-        role: "user",
+        role: "Shopper",
         token: "test-token",
       },
       hasLoggedIn: true,

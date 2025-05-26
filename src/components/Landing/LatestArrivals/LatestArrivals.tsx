@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import Button from "@components/shared/Button/Button";
@@ -11,7 +10,6 @@ const LatestArrivals = () => {
   const [latestArrivals, setLatestArrivals] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState(true);
   const { isInWishlist, toggleWishlist } = useShop();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLatestArrivals = async () => {
