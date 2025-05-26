@@ -13,23 +13,26 @@ const Wishlist = () => {
   const [loading, setLoading] = useState(true);
   const { toggleWishlist, isInWishlist, wishlist } = useShop();
   const navigate = useNavigate();
-  const { user } = useGetUser();
+  const { user, hasLoggedIn } = useGetUser();
 
   useEffect(() => {
-    const fetchWishlist = async () => {
-      if (!user?.token) return;
-      try {
-        const productList = await getWishlist(user.token);
-        setProducts(productList);
-      } catch (error) {
-        console.error("Failed to load wishlist", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (hasLoggedIn && user?.role === "Shopper") {
+      const fetchWishlist = async () => {
+        try {
+          const productList = await getWishlist(user.token);
+          setProducts(productList);
+        } catch (error) {
+          console.error("Failed to load wishlist", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchWishlist();
-  }, [user?.token, wishlist]);
+      fetchWishlist();
+    } else {
+      navigate("/", { replace: true });
+    }
+  }, [hasLoggedIn, user?.role, wishlist]);
 
   return (
     <div className="flex flex-col items-center min-h-screen px-4">

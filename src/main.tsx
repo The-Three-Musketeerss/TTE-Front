@@ -27,7 +27,7 @@ const ENV = import.meta.env.VITE_ENV;
 const traceSampleRate = ENV === "production" ? 0.1 : 1.0;
 
 const traceTargets = ENV === "production"
-  ? [import.meta.env.VITE_TRACE_TARGET_PROD]
+  ? [import.meta.env.VITE_API_URL]
   : [import.meta.env.VITE_TRACE_TARGET_DEV];
 
 Sentry.init({
