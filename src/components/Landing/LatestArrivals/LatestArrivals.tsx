@@ -30,7 +30,7 @@ const LatestArrivals = () => {
       <p className="text-base-content max-w-[400px] text-center pb-5">
         Explore the newest additions to our collection — fresh styles and trending picks just for you.
       </p>
-      <Button text="Shop all" fullWidth={false} onClick={() => navigate("/listing")} />
+      <Button text="Shop all" fullWidth={false} onClick={() => {throw new Error("This is your first error!");}} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-6xl px-4">
         {loading
