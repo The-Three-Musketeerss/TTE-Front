@@ -29,7 +29,7 @@ jobs:
         run: npm ci
 
       - name: Build production bundle
-        run: npm run build
+        run: npm run build:prod
 
   publish:
     name: Publish Docker image
@@ -80,6 +80,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
             VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_ENV=${{ secrets.VITE_ENV }}
+            VITE_SENTRY_DSN=${{ secrets.VITE_SENTRY_DSN }}
+            VITE_TRACE_TARGET_DEV=${{ secrets.VITE_TRACE_TARGET_DEV }}
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy:
     needs: publish
