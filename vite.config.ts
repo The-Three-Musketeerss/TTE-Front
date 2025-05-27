@@ -8,7 +8,8 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   plugins: [tailwindcss(), react(), tsconfigPaths(), sentryVitePlugin({
     org: "miguel-jaramillo",
-    project: "javascript-react"
+    project: "javascript-react",
+    authToken: process.env.SENTRY_AUTH_TOKEN,
   })],
 
   test: {
