@@ -33,6 +33,8 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   publish:
     name: Publish Docker image
