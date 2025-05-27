@@ -51,14 +51,15 @@ const mockGetWishlist = vi.spyOn(WishlistServices, "getWishlist");
 describe("Wishlist component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+
     vi.spyOn(useGetUserModule, "useGetUser").mockReturnValue({
-        user: {
-            token: "mock-token",
-            username: undefined,
-            email: undefined,
-            role: undefined
-        },
-        hasLoggedIn: false
+      user: {
+        token: "mock-token",
+        username: "testuser",
+        email: "test@example.com",
+        role: "Shopper",
+      },
+      hasLoggedIn: true,
     });
   });
 
@@ -109,7 +110,9 @@ describe("Wishlist component", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Your wishlist is empty")).toBeInTheDocument();
-      expect(screen.getByText("Start adding your favorite items to keep track of them here.")).toBeInTheDocument();
+      expect(
+        screen.getByText("Start adding your favorite items to keep track of them here.")
+      ).toBeInTheDocument();
     });
   });
 

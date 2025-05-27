@@ -46,13 +46,13 @@ describe("Orders component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.spyOn(useGetUserModule, "useGetUser").mockReturnValue({
-        user: {
-            token: "mock-token",
-            username: undefined,
-            email: undefined,
-            role: undefined
-        },
-        hasLoggedIn: false
+      user: {
+        token: "mock-token",
+        username: "testuser",
+        email: "test@example.com",
+        role: "Shopper",
+      },
+      hasLoggedIn: true,
     });
   });
 
@@ -107,8 +107,8 @@ describe("Orders component", () => {
 
   it("does not call getOrders if token is missing", async () => {
     vi.spyOn(useGetUserModule, "useGetUser").mockReturnValue({
-        user: null,
-        hasLoggedIn: false
+      user: null,
+      hasLoggedIn: false,
     });
 
     render(<Orders />, { wrapper: MemoryRouter });

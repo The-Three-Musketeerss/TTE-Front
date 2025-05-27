@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const OrderDetail = () => {
   const { id } = useParams();
-  const { user } = useGetUser();
+  const { user, hasLoggedIn } = useGetUser();
   const navigate = useNavigate();
   const [order, setOrder] = useState<orderProps>();
   const loading = order === undefined;
@@ -24,12 +24,14 @@ const OrderDetail = () => {
   };
 
   useEffect(() => {
-    if (user?.token) {
+    if (hasLoggedIn && user?.role === "Shopper") {
       fetchOrder();
+    } else if (hasLoggedIn) {
+      navigate("/", { replace: true });
     } else {
       navigate("/login", { replace: true });
     }
-  }, [user?.token, id]);
+  }, [hasLoggedIn, user?.role, id]);
 
   if (!order && !loading) {
     return (

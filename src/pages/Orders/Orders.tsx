@@ -3,7 +3,7 @@ import { useGetUser } from "@hooks/useGetUser";
 import { getOrders } from "@services/OrderServices";
 import Table from "@components/shared/Table/Table";
 import TableSkeleton from "@components/shared/Table/Skeleton/Skeleton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const headers = [
@@ -16,38 +16,42 @@ const Orders = () => {
     { label: "Status", key: "status" },
   ];
 
-  const { user } = useGetUser();
+  const { user, hasLoggedIn } = useGetUser();
+  const navigate = useNavigate();
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      if (!user?.token) return;
+    if (hasLoggedIn && user?.role === "Shopper") {
+      const fetchOrders = async () => {
+        try {
+          const response = await getOrders(user.token);
+          const formatted = response.data.map((order: any) => ({
+            orderNo: (
+              <Link to={`/orders/${order.id}`} className="text-blue-500 hover:underline">
+                {order.id}
+              </Link>
+            ),
+            customerName: order.customerName,
+            paymentStatus: order.paymentStatus,
+            amount: `$${order.finalTotal.toFixed(2)}`,
+            address: order.address,
+            orderDate: new Date(order.createdAt).toLocaleDateString(),
+            status: order.status,
+          }));
+          setOrders(formatted);
+        } catch (err) {
+          console.error("Failed to fetch orders", err);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-      try {
-        const response = await getOrders(user.token);
-        const formatted = response.data.map((order: any) => ({
-          orderNo: (
-            <Link to={`/orders/${order.id}`} className="text-blue-500 hover:underline">
-              {order.id}
-            </Link>
-          ),
-          customerName: order.customerName,
-          paymentStatus: order.paymentStatus,
-          amount: `$${order.finalTotal.toFixed(2)}`,
-          address: order.address,
-          orderDate: new Date(order.createdAt).toLocaleDateString(),
-          status: order.status,
-        }));
-        setOrders(formatted);
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to fetch orders", err);
-      }
-    };
-
-    fetchOrders();
-  }, [user?.token]);
+      fetchOrders();
+    } else {
+      navigate("/", { replace: true });
+    }
+  }, [hasLoggedIn, user?.role]);
 
   return (
     <div className="min-h-screen">

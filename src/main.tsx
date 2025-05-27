@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
+import * as Sentry from "@sentry/react";
 import BaseLayout from "@layouts/BaseLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import { ShopProvider } from "@contexts/ShopContext";
@@ -20,6 +21,23 @@ import Checkout from "@pages/Checkout/Checkout";
 import ForgotPassword from "@pages/ForgotPassword/ForgotPassword";
 import Signup from "@pages/Signup/Signup";
 import OrderDetail from "@pages/Orders/Id/OrderDetail";
+
+const ENV = import.meta.env.VITE_ENV;
+
+const traceSampleRate = ENV === "production" ? 0.1 : 1.0;
+
+const traceTargets = ENV === "production"
+  ? [import.meta.env.VITE_API_URL]
+  : [import.meta.env.VITE_TRACE_TARGET_DEV];
+
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  sendDefaultPii: true,
+  integrations: [Sentry.browserTracingIntegration()],
+  tracesSampleRate: traceSampleRate,
+  tracePropagationTargets: traceTargets,
+  environment: ENV,
+});
 
 const queryClient = new QueryClient();
 

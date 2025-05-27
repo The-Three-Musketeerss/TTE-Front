@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -5,7 +6,12 @@ import { defineConfig } from "vitest/config";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss(), react(), tsconfigPaths()],
+  plugins: [tailwindcss(), react(), tsconfigPaths(), sentryVitePlugin({
+    org: "miguel-jaramillo",
+    project: "javascript-react",
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+  })],
+
   test: {
     globals: true,
     environment: "jsdom",
@@ -42,4 +48,8 @@ export default defineConfig({
       ],
     },
   },
+
+  build: {
+    sourcemap: true
+  }
 });
