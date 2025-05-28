@@ -6,7 +6,7 @@ import * as useGetUserModule from "@hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
 
 // Mocks
-vi.mock("@services/JobServices.", () => ({
+vi.mock("@services/JobServices", () => ({
   getJobs: vi.fn(),
   reviewJob: vi.fn(),
 }));
