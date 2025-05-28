@@ -10,6 +10,7 @@ import PaymentForm from "@components/Checkout/PaymentForm/PaymentForm";
 import StepperHeader from "@components/Checkout/StepperHeader/StepperHeader";
 import { useShop } from "@contexts/ShopContext";
 import CheckoutSummary from "@components/Checkout/CheckoutSummary/CheckoutSummary";
+import { invalidateOrders } from "@hooks/useOrders";
 
 const Checkout = () => {
   const [cart, setCart] = useState<CartItemProps>();
@@ -59,6 +60,7 @@ const Checkout = () => {
 
   const handleOrderComplete = async () => {
     clearFormData();
+    invalidateOrders();
     await refreshCart();
     navigate("/orders");
   };
