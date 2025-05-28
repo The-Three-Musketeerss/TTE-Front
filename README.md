@@ -48,9 +48,9 @@ To run the project locally:
 
 | Metric      | Coverage |
 |-------------|----------|
-| Statements  | 95.75%   |
-| Branches    | 89.09%   |
-| Functions   | 87.89%   |
-| Lines       | 95.75%   |
+| Statements  | 95.37%   |
+| Branches    | 88.97%   |
+| Functions   | 87.97%   |
+| Lines       | 95.37%   |
 
-![alt text](image-1.png)
+![alt text](image-2.png)
