@@ -5,6 +5,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useGetUser } from "@hooks/useGetUser";
 import { useCookies } from "react-cookie";
+import SearchBar from "@components/shared/SearchBar/SearchBar";
 import toast from "react-hot-toast";
 import { useShop } from "@contexts/ShopContext";
 
@@ -49,11 +50,6 @@ const Header = () => {
     return () => clearTimeout(timeout);
   }, [searchQuery]);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate(`/listing?search=${encodeURIComponent(searchQuery.trim())}`);
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex-row-center justify-center w-full h-9 bg-primary">
@@ -75,15 +71,7 @@ const Header = () => {
           <Link to="/listing" className="desktop-only">Shop list</Link>
         </div>
 
-        <form onSubmit={handleSearch} className="flex items-center gap-2">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products..."
-            className="input input-bordered w-36 lg:w-64"
-          />
-        </form>
+        <SearchBar />
 
         <div className="flex-row-center gap-3">
           {hasLoggedIn ? (
