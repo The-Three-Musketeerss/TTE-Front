@@ -39,8 +39,3 @@ export const Disabled: Story = {
   },
 };
 
-export const WithJSX: Story = {
-  args: {
-    text: <span><strong>Bold</strong> Text</span>,
-  },
-};
