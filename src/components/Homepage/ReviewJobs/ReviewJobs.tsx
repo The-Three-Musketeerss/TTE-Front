@@ -1,7 +1,7 @@
 import TableSkeleton from "@components/shared/Table/Skeleton/Skeleton";
 import Table from "@components/shared/Table/Table";
 import { useGetUser } from "@hooks/useGetUser";
-import { getJobs, reviewJob } from "@services/JobServices.";
+import { getJobs, reviewJob } from "@services/JobServices";
 import { JobItemProps } from "@utils/types";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
