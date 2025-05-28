@@ -1,8 +1,8 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { screen, waitFor, fireEvent } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import TopCategories from "./TopCategories";
 import * as CategoryServices from "@services/CategoryServices";
-import { MemoryRouter } from "react-router-dom";
+import { customRender } from "@utils/test-utils";
 
 const mockGetTopCategories = vi.spyOn(CategoryServices, "getTopCategories");
 const mockNavigate = vi.fn();
@@ -37,7 +37,7 @@ describe("TopCategories", () => {
   it("shows loading skeletons initially", async () => {
     mockGetTopCategories.mockResolvedValue({ data: [] });
 
-    render(<TopCategories />, { wrapper: MemoryRouter });
+    customRender(<TopCategories />);
 
     expect(screen.getAllByTestId("button-skeleton")).toHaveLength(3);
 
@@ -51,7 +51,7 @@ describe("TopCategories", () => {
       data: ["Shoes", "Accessories", "Jackets"],
     });
 
-    render(<TopCategories />, { wrapper: MemoryRouter });
+    customRender(<TopCategories />);
 
     await waitFor(() => {
       expect(screen.getAllByTestId("category-button")).toHaveLength(3);
@@ -66,7 +66,7 @@ describe("TopCategories", () => {
       data: ["Hats"],
     });
 
-    render(<TopCategories />, { wrapper: MemoryRouter });
+    customRender(<TopCategories />);
 
     await waitFor(() => {
       fireEvent.click(screen.getByText("Hats"));

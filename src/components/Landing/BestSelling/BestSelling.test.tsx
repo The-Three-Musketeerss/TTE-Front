@@ -1,8 +1,8 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { screen, waitFor, fireEvent } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import BestSelling from "./BestSelling";
 import * as ProductServices from "@services/ProductServices";
-import { MemoryRouter } from "react-router-dom";
+import { customRender } from "@utils/test-utils";
 
 vi.mock("@components/shared/ProductCard/ProductCard", () => ({
   __esModule: true,
@@ -56,7 +56,7 @@ describe("BestSelling", () => {
   it("renders loading skeletons initially", async () => {
     mockGetTopSellingProducts.mockResolvedValue({ data: [] });
 
-    render(<BestSelling />, { wrapper: MemoryRouter });
+    customRender(<BestSelling />);
 
     expect(screen.getAllByTestId("skeleton")).toHaveLength(3);
 
@@ -73,7 +73,7 @@ describe("BestSelling", () => {
       ],
     });
 
-    render(<BestSelling />, { wrapper: MemoryRouter });
+    customRender(<BestSelling />);
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card").length).toBe(2);
@@ -87,7 +87,7 @@ describe("BestSelling", () => {
       data: [{ id: 1, title: "Product A" }],
     });
 
-    render(<BestSelling />, { wrapper: MemoryRouter });
+    customRender(<BestSelling />);
 
     await waitFor(() => {
       expect(screen.getByText("Product A")).toBeInTheDocument();
@@ -98,15 +98,14 @@ describe("BestSelling", () => {
   });
 
   it("navigates to /listing when clicking Shop all", async () => {
-  mockGetTopSellingProducts.mockResolvedValue({ data: [] });
+    mockGetTopSellingProducts.mockResolvedValue({ data: [] });
 
-  render(<BestSelling />, { wrapper: MemoryRouter });
+    customRender(<BestSelling />);
 
-  await waitFor(() => {
-    fireEvent.click(screen.getByText("Shop all"));
+    await waitFor(() => {
+      fireEvent.click(screen.getByText("Shop all"));
+    });
+
+    expect(navigateMock).toHaveBeenCalledWith("/listing");
   });
-
-  expect(navigateMock).toHaveBeenCalledWith("/listing");
-});
-
 });

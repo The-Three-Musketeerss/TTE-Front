@@ -1,9 +1,8 @@
-// LatestArrivals.test.tsx
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import LatestArrivals from "./LatestArrivals";
 import * as ProductServices from "@services/ProductServices";
-import { MemoryRouter } from "react-router-dom";
+import { customRender } from "@utils/test-utils";
 
 const mockToggleWishlist = vi.fn();
 const mockIsInWishlist = vi.fn((id: number) => id === 1);
@@ -58,7 +57,7 @@ describe("LatestArrivals", () => {
   it("renders skeletons while loading", async () => {
     mockGetLatestArrivals.mockResolvedValue({ data: [] });
 
-    render(<LatestArrivals />, { wrapper: MemoryRouter });
+    customRender(<LatestArrivals />);
 
     expect(screen.getAllByTestId("skeleton")).toHaveLength(3);
 
@@ -75,7 +74,7 @@ describe("LatestArrivals", () => {
       ],
     });
 
-    render(<LatestArrivals />, { wrapper: MemoryRouter });
+    customRender(<LatestArrivals />);
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card").length).toBe(2);
@@ -89,7 +88,7 @@ describe("LatestArrivals", () => {
       data: [{ id: 3, title: "Wishlist Product" }],
     });
 
-    render(<LatestArrivals />, { wrapper: MemoryRouter });
+    customRender(<LatestArrivals />);
 
     await waitFor(() => {
       fireEvent.click(screen.getByText("Add to wishlist"));
