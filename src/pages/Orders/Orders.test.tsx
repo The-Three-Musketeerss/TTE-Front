@@ -1,9 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import Orders from "./Orders";
 import * as OrderServices from "@services/OrderServices";
 import * as useGetUserModule from "@hooks/useGetUser";
-import { MemoryRouter } from "react-router-dom";
+import { customRender } from "@utils/test-utils";
 
 vi.mock("@components/shared/Table/Table", () => ({
   __esModule: true,
@@ -36,7 +36,6 @@ vi.mock("react-router-dom", async () => {
   return {
     ...actual,
     Link: ({ to, children }: any) => <a href={to}>{children}</a>,
-    MemoryRouter: actual.MemoryRouter,
   };
 });
 
@@ -59,7 +58,7 @@ describe("Orders component", () => {
   it("shows loading skeleton initially", async () => {
     mockGetOrders.mockResolvedValue({ data: [] });
 
-    render(<Orders />, { wrapper: MemoryRouter });
+    customRender(<Orders />);
 
     expect(screen.getByTestId("table-skeleton")).toBeInTheDocument();
 
@@ -83,7 +82,7 @@ describe("Orders component", () => {
       ],
     });
 
-    render(<Orders />, { wrapper: MemoryRouter });
+    customRender(<Orders />);
 
     await waitFor(() => {
       expect(screen.getByTestId("order-table")).toBeInTheDocument();
@@ -98,7 +97,7 @@ describe("Orders component", () => {
   it("shows message when there are no orders", async () => {
     mockGetOrders.mockResolvedValue({ data: [] });
 
-    render(<Orders />, { wrapper: MemoryRouter });
+    customRender(<Orders />);
 
     await waitFor(() => {
       expect(screen.getByText("No orders found.")).toBeInTheDocument();
@@ -111,7 +110,7 @@ describe("Orders component", () => {
       hasLoggedIn: false,
     });
 
-    render(<Orders />, { wrapper: MemoryRouter });
+    customRender(<Orders />);
 
     await waitFor(() => {
       expect(mockGetOrders).not.toHaveBeenCalled();

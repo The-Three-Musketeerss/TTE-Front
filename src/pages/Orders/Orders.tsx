@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { useGetUser } from "@hooks/useGetUser";
-import { getOrders } from "@services/OrderServices";
+import { useOrders } from "@hooks/useOrders";
 import Table from "@components/shared/Table/Table";
 import TableSkeleton from "@components/shared/Table/Skeleton/Skeleton";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,40 +17,30 @@ const Orders = () => {
 
   const { user, hasLoggedIn } = useGetUser();
   const navigate = useNavigate();
-  const [orders, setOrders] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (hasLoggedIn && user?.role === "Shopper") {
-      const fetchOrders = async () => {
-        try {
-          const response = await getOrders(user.token);
-          const formatted = response.data.map((order: any) => ({
-            orderNo: (
-              <Link to={`/orders/${order.id}`} className="text-blue-500 hover:underline">
-                {order.id}
-              </Link>
-            ),
-            customerName: order.customerName,
-            paymentStatus: order.paymentStatus,
-            amount: `$${order.finalTotal.toFixed(2)}`,
-            address: order.address,
-            orderDate: new Date(order.createdAt).toLocaleDateString(),
-            status: order.status,
-          }));
-          setOrders(formatted);
-        } catch (err) {
-          console.error("Failed to fetch orders", err);
-        } finally {
-          setLoading(false);
-        }
-      };
+  const {
+    data,
+    isLoading,
+  } = useOrders(user?.token);
 
-      fetchOrders();
-    } else {
-      navigate("/", { replace: true });
-    }
-  }, [hasLoggedIn, user?.role]);
+  if (!hasLoggedIn || user?.role !== "Shopper") {
+    navigate("/", { replace: true });
+    return null;
+  }
+
+  const formatted = data?.data.map((order: any) => ({
+    orderNo: (
+      <Link to={`/orders/${order.id}`} className="text-blue-500 hover:underline">
+        {order.id}
+      </Link>
+    ),
+    customerName: order.customerName,
+    paymentStatus: order.paymentStatus,
+    amount: `$${order.finalTotal.toFixed(2)}`,
+    address: order.address,
+    orderDate: new Date(order.createdAt).toLocaleDateString(),
+    status: order.status,
+  }));
 
   return (
     <div className="min-h-screen">
@@ -59,10 +48,10 @@ const Orders = () => {
         <h1 className="text-2xl font-semibold text-primary">My Orders</h1>
       </div>
 
-      {loading ? (
+      {isLoading ? (
         <TableSkeleton />
-      ) : orders.length > 0 ? (
-        <Table headers={headers} data={orders} />
+      ) : formatted?.length > 0 ? (
+        <Table headers={headers} data={formatted} />
       ) : (
         <div className="text-center text-gray-500 py-12">
           <p className="text-lg">No orders found.</p>

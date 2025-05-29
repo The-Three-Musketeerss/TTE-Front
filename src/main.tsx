@@ -4,7 +4,8 @@ import * as Sentry from "@sentry/react";
 import BaseLayout from "@layouts/BaseLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import { ShopProvider } from "@contexts/ShopContext";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@utils/queryClient";
 import { CookiesProvider } from "react-cookie";
 import { Toaster } from "react-hot-toast";
 //Pages
@@ -26,6 +27,7 @@ const ENV = import.meta.env.VITE_ENV;
 
 const traceSampleRate = ENV === "production" ? 0.1 : 1.0;
 
+
 const traceTargets = ENV === "production"
   ? [import.meta.env.VITE_API_URL]
   : [import.meta.env.VITE_TRACE_TARGET_DEV];
@@ -39,7 +41,6 @@ Sentry.init({
   environment: ENV,
 });
 
-const queryClient = new QueryClient();
 
 const root = document.getElementById("root");
 
