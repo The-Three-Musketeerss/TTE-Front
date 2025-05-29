@@ -1,24 +1,17 @@
 import Button from "@components/shared/Button/Button";
 import ButtonSkeleton from "@components/shared/Button/Skeleton/Skeleton";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTopCategories } from "@services/CategoryServices";
+import { useTopCategories } from "@hooks/useTopCategories";
 
 const TopCategories = () => {
-  const [topCategories, setTopCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const {
+    data,
+    isLoading,
+    isError,
+  } = useTopCategories();
 
-  useEffect(() => {
-    const fetchTopCategories = async () => {
-      setLoading(true);
-      const response = await getTopCategories();
-      setTopCategories(response.data);
-      setLoading(false);
-    };
-
-    fetchTopCategories();
-  }, []);
+  const topCategories = data?.data ?? [];
 
   const handleClick = (category: string) => {
     navigate(`/listing?category=${encodeURIComponent(category)}`);
@@ -34,16 +27,18 @@ const TopCategories = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 w-full max-w-4xl px-4">
-        {loading
+        {isLoading
           ? [1, 2, 3].map((i) => <ButtonSkeleton key={i} />)
-          : topCategories.map((category, index) => (
-              <Button
-                key={index}
-                text={category}
-                fullWidth={true}
-                onClick={() => handleClick(category)}
-              />
-            ))}
+          : isError
+            ? <p className="text-center text-red-500 col-span-full">Failed to load categories.</p>
+            : topCategories.map((category, index) => (
+                <Button
+                  key={index}
+                  text={category}
+                  fullWidth={true}
+                  onClick={() => handleClick(category)}
+                />
+              ))}
       </div>
     </section>
   );

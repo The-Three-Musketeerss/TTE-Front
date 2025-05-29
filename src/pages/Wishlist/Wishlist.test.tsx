@@ -1,9 +1,9 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { screen, waitFor, fireEvent } from "@testing-library/react";
 import { describe, it, vi, beforeEach, expect } from "vitest";
 import Wishlist from "./Wishlist";
 import * as WishlistServices from "@services/WishlistServices";
-import { MemoryRouter } from "react-router-dom";
 import * as useGetUserModule from "@hooks/useGetUser";
+import { customRender } from "@utils/test-utils";
 
 const mockToggleWishlist = vi.fn();
 const mockIsInWishlist = vi.fn((id: number) => id === 1);
@@ -34,7 +34,6 @@ vi.mock("react-router-dom", async () => {
   return {
     ...actual,
     useNavigate: () => mockNavigate,
-    MemoryRouter: actual.MemoryRouter,
   };
 });
 
@@ -66,7 +65,7 @@ describe("Wishlist component", () => {
   it("renders skeletons while loading", async () => {
     mockGetWishlist.mockResolvedValue([]);
 
-    render(<Wishlist />, { wrapper: MemoryRouter });
+    customRender(<Wishlist />);
 
     expect(screen.getAllByTestId("skeleton")).toHaveLength(3);
 
@@ -81,7 +80,7 @@ describe("Wishlist component", () => {
       { id: 2, title: "Item 2", image: "url", price: 20 },
     ]);
 
-    render(<Wishlist />, { wrapper: MemoryRouter });
+    customRender(<Wishlist />);
 
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(2);
@@ -95,7 +94,7 @@ describe("Wishlist component", () => {
       { id: 3, title: "Item 3", image: "url", price: 30 },
     ]);
 
-    render(<Wishlist />, { wrapper: MemoryRouter });
+    customRender(<Wishlist />);
 
     await waitFor(() => {
       fireEvent.click(screen.getByText("Toggle Wishlist"));
@@ -106,7 +105,7 @@ describe("Wishlist component", () => {
   it("shows empty message if no products", async () => {
     mockGetWishlist.mockResolvedValue([]);
 
-    render(<Wishlist />, { wrapper: MemoryRouter });
+    customRender(<Wishlist />);
 
     await waitFor(() => {
       expect(screen.getByText("Your wishlist is empty")).toBeInTheDocument();
@@ -119,7 +118,7 @@ describe("Wishlist component", () => {
   it("navigates to /listing when clicking 'Shop all'", async () => {
     mockGetWishlist.mockResolvedValue([]);
 
-    render(<Wishlist />, { wrapper: MemoryRouter });
+    customRender(<Wishlist />);
 
     await waitFor(() => {
       fireEvent.click(screen.getByText("Shop all"));

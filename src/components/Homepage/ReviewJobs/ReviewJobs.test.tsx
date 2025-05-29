@@ -1,12 +1,12 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ReviewJobs from "./ReviewJobs";
 import { vi, describe, it, beforeEach, expect } from "vitest";
-import * as JobServices from "@services/JobServices.";
+import * as JobServices from "@services/JobServices";
 import * as useGetUserModule from "@hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
 
 // Mocks
-vi.mock("@services/JobServices.", () => ({
+vi.mock("@services/JobServices", () => ({
   getJobs: vi.fn(),
   reviewJob: vi.fn(),
 }));

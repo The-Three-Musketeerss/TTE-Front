@@ -1,38 +1,28 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetUser } from "@hooks/useGetUser";
-import { getWishlist } from "@services/WishlistServices";
+import { useWishlist } from "@hooks/useWishlist";
 import ProductCard from "@components/shared/ProductCard/ProductCard";
 import Skeleton from "@components/shared/ProductCard/Skeleton/Skeleton";
 import Button from "@components/shared/Button/Button";
-import { ProductProps } from "@utils/types";
 import { useShop } from "@contexts/ShopContext";
 
 const Wishlist = () => {
-  const [products, setProducts] = useState<ProductProps[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { toggleWishlist, isInWishlist, wishlist } = useShop();
+  const { toggleWishlist, isInWishlist } = useShop();
   const navigate = useNavigate();
   const { user, hasLoggedIn } = useGetUser();
 
-  useEffect(() => {
-    if (hasLoggedIn && user?.role === "Shopper") {
-      const fetchWishlist = async () => {
-        try {
-          const productList = await getWishlist(user.token);
-          setProducts(productList);
-        } catch (error) {
-          console.error("Failed to load wishlist", error);
-        } finally {
-          setLoading(false);
-        }
-      };
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useWishlist(user?.token);
 
-      fetchWishlist();
-    } else {
-      navigate("/", { replace: true });
-    }
-  }, [hasLoggedIn, user?.role, wishlist]);
+  if (!hasLoggedIn || user?.role !== "Shopper") {
+    navigate("/", { replace: true });
+    return null;
+  }
+
+  
 
   return (
     <div className="flex flex-col items-center min-h-screen px-4">
@@ -42,12 +32,14 @@ const Wishlist = () => {
       </p>
       <Button text="Shop all" fullWidth={false} onClick={() => navigate("/listing")} />
 
-      {loading ? (
+      {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-6xl">
           {[1, 2, 3].map((i) => (
             <Skeleton key={i} />
           ))}
         </div>
+      ) : isError ? (
+        <div className="text-center text-red-500 mt-12">Failed to load wishlist.</div>
       ) : products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 w-full max-w-6xl">
           {products.map((item) => (

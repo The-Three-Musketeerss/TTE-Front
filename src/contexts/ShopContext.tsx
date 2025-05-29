@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { getWishlist, addToWishlist, removeFromWishlist } from "@services/WishlistServices";
 import { getCart } from "@services/CartServices";
 import { useGetUser } from "@hooks/useGetUser";
+import { invalidateWishlist } from "@hooks/useWishlist";
 
 type ShopContextType = {
   wishlist: Set<number>;
@@ -92,6 +93,8 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
         });
         toast.success("Added to wishlist");
       }
+
+      invalidateWishlist();
     } catch (error) {
       toast.error("Failed to update wishlist");
     }
