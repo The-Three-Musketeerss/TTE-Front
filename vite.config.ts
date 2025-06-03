@@ -9,6 +9,7 @@ export default defineConfig({
    resolve: {
     alias: {
       '@services/ProductServices': path.resolve(__dirname, '__mocks__/@services/ProductServices.ts'),
+      '@services/AuthServices': path.resolve(__dirname, '__mocks__/@services/AuthServices.ts'),
     },
   },
   plugins: [tailwindcss(), react(), tsconfigPaths(), sentryVitePlugin({
