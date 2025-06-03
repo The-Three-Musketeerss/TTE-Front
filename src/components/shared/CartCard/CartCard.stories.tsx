@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CartCard from "./CartCard";
-import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ShopProvider } from "@contexts/ShopContext";
 import { CookiesProvider } from "react-cookie";
@@ -22,12 +21,11 @@ export const Primary: Story = {
     quantity: 2,
   },
   render: (args) => {
-    const [cart, setCart] = useState([]);
     return (
       <CookiesProvider>
         <ShopProvider>
           <BrowserRouter>
-            <CartCard {...args} setCart={setCart} />
+            <CartCard {...args}/>
           </BrowserRouter>
         </ShopProvider>
       </CookiesProvider>
