@@ -9,6 +9,24 @@ const meta: Meta<typeof CartSummary> = {
   title: "Cart/CartSummary",
   component: CartSummary,
   tags: ["autodocs"],
+  argTypes: {
+    subtotal: {
+      control: { type: "number" },
+      defaultValue: 100,
+    },
+    subAfterDiscount: {
+      control: { type: "number" },
+      defaultValue: 80,
+    },
+    shipping: {
+      control: { type: "number" },
+      defaultValue: 10,
+    },
+    total: {
+      control: { type: "number" },
+      defaultValue: 90,
+    },
+  },
 };
 
 export default meta;
@@ -16,20 +34,19 @@ export default meta;
 type Story = StoryObj<typeof CartSummary>;
 
 export const Primary: Story = {
-  render: () => {
+  args: {
+    subtotal: 100,
+    subAfterDiscount: 80,
+    shipping: 10,
+    total: 90,
+  },
+  render: (args) => {
     const [cart, setCart] = useState({});
-
     return (
       <CookiesProvider>
         <ShopProvider>
           <BrowserRouter>
-            <CartSummary
-              subtotal={100}
-              subAfterDiscount={80}
-              shipping={10}
-              total={90}
-              setCart={setCart}
-            />
+            <CartSummary {...args} setCart={setCart} />
           </BrowserRouter>
         </ShopProvider>
       </CookiesProvider>
