@@ -3,15 +3,8 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
-import path from 'path';
 
 export default defineConfig({
-   resolve: {
-    alias: {
-      '@services/ProductServices': path.resolve(__dirname, '__mocks__/@services/ProductServices.ts'),
-      '@services/AuthServices': path.resolve(__dirname, '__mocks__/@services/AuthServices.ts'),
-    },
-  },
   plugins: [tailwindcss(), react(), tsconfigPaths(), sentryVitePlugin({
     org: "miguel-jaramillo",
     project: "javascript-react",
@@ -56,6 +49,7 @@ export default defineConfig({
         "**/*.stories.*",
         ".storybook/**",
         "**/components/shared/BaseInput/**",
+        "**/__mocks__/**"
       ],
     },
   },
