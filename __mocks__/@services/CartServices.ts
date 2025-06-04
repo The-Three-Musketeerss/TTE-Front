@@ -15,3 +15,7 @@ export const deleteFromCart = async (token: string, productId: number) => {
     message: `Item ${productId} removed from cart.`,
   });
 };
+
+export const addToCart = async (token: string, productId: number, quantity: number) => {
+  return Promise.resolve({ message: `Added ${quantity} of product ${productId}` });
+};
