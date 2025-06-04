@@ -17,3 +17,9 @@ export const updateCategory = async (id: number, data: any, token: string) => {
     data: { id, ...data },
   });
 };
+
+export const createCategory = async (name: string, token: string) => {
+  return Promise.resolve({
+    message: `Category "${name}" created successfully`,
+  });
+};
