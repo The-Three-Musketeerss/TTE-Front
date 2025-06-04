@@ -30,6 +30,9 @@ const config: StorybookConfig = {
         '@services/ProductServices': path.resolve(__dirname, '../__mocks__/@services/ProductServices.ts'),
         '@services/CartServices': path.resolve(__dirname, '../__mocks__/@services/CartServices.ts'),
         '@services/CategoryServices': path.resolve(__dirname, '../__mocks__/@services/CategoryServices.ts'),
+        '@services/JobServices': path.resolve(__dirname, '../__mocks__/@services/JobServices.ts'),
+        '@services/UserServices': path.resolve(__dirname, '../__mocks__/@services/UserServices.ts'),
+        '@hooks/useGetUser': path.resolve(__dirname, '../__mocks__/@hooks/useGetUser.ts'),
       },
     };
     return config;

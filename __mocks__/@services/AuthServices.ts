@@ -25,3 +25,10 @@ export const Signup = async (data: any) => {
     message: `Welcome, ${data.name}!`,
   };
 };
+
+export const createEmployee = async (employee, token) => {
+  return Promise.resolve({
+    message: "Employee created",
+    data: employee,
+  });
+};
