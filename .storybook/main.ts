@@ -29,6 +29,7 @@ const config: StorybookConfig = {
         '@services/AuthServices': path.resolve(__dirname, '../__mocks__/@services/AuthServices.ts'),
         '@services/ProductServices': path.resolve(__dirname, '../__mocks__/@services/ProductServices.ts'),
         '@services/CartServices': path.resolve(__dirname, '../__mocks__/@services/CartServices.ts'),
+        '@services/CategoryServices': path.resolve(__dirname, '../__mocks__/@services/CategoryServices.ts'),
       },
     };
     return config;
