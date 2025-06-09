@@ -5,7 +5,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useGetUser } from "@hooks/useGetUser";
 import { useCookies } from "react-cookie";
-import SearchBar from "@components/shared/SearchBar/SearchBar";
+import SearchBar from "@components/shared/Header/SearchBar/SearchBar";
 import toast from "react-hot-toast";
 import { useShop } from "@contexts/ShopContext";
 

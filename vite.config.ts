@@ -4,7 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react(), tsconfigPaths(), sentryVitePlugin({
     org: "miguel-jaramillo",
@@ -35,6 +34,8 @@ export default defineConfig({
         "**/vite.config.ts",
         "**/vite-env.d.ts",
         "**/main.tsx",
+        "**/main.ts",
+        "**/preview.ts",
         "**/services/**",
         "**/types.ts",
         "**/Skeleton/**",
@@ -45,6 +46,10 @@ export default defineConfig({
         "**/components/cart/Shipping/**",
         "**/components/ProductDetail/ProductDetailSkeleton.tsx",
         "**/hooks/**",
+        "**/*.stories.*",
+        ".storybook/**",
+        "**/components/shared/BaseInput/**",
+        "**/__mocks__/**"
       ],
     },
   },

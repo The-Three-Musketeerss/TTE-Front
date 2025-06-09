@@ -16,7 +16,7 @@ type ShopContextType = {
   resetShop: () => void;
 };
 
-const ShopContext = createContext<ShopContextType | null>(null);
+export const ShopContext = createContext<ShopContextType | null>(null);
 
 export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useGetUser();
