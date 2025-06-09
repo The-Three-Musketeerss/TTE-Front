@@ -33,6 +33,7 @@ const config: StorybookConfig = {
         '@services/JobServices': path.resolve(__dirname, '../__mocks__/@services/JobServices.ts'),
         '@services/UserServices': path.resolve(__dirname, '../__mocks__/@services/UserServices.ts'),
         '@hooks/useGetUser': path.resolve(__dirname, '../__mocks__/@hooks/useGetUser.ts'),
+        '@services/OrderServices': path.resolve(__dirname, '../__mocks__/@services/OrderServices.ts'),
       },
     };
     return config;
