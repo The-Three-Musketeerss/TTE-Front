@@ -41,7 +41,7 @@ export const Primary: Story = {
     total: 90,
   },
   render: (args) => {
-    const [cart, setCart] = useState({});
+    const [, setCart] = useState({});
     return (
       <CookiesProvider>
         <ShopProvider>
